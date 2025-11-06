@@ -7,51 +7,41 @@
   <meta name="description" content="Viatges tranquils i segurs per a persones grans. Sortides properes, assegurança, atenció personalitzada i grups reduïts." />
   <style>
     :root{
-      --bg:#fffefc;
-      --text:#1d1d1b;
-      --muted:#585858;
-      --brand:#0a6b4a;
-      --brand-2:#f0f8f5;
-      --accent:#e27e2b;
-      --radius:16px;
+      --bg:#fffefc;--text:#1d1d1b;--muted:#585858;--brand:#0a6b4a;--brand-2:#f0f8f5;--accent:#e27e2b;--radius:16px;
     }
     html{scroll-behavior:smooth;}
-    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial; margin:0; background:var(--bg); color:var(--text); line-height:1.6; font-size:18px}
-    img{max-width:100%; height:auto; border-radius:var(--radius)}
-    a{color:var(--brand); text-underline-offset:3px}
-    .container{max-width:1050px; margin-inline:auto; padding:24px}
-    .btn{display:inline-block; font-weight:700; padding:14px 22px; border-radius:999px; border:2px solid transparent; text-decoration:none; font-size:18px}
-    .btn-primary{background:var(--brand); color:#fff}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica Neue,Arial;margin:0;background:var(--bg);color:var(--text);line-height:1.6;font-size:18px}
+    img{max-width:100%;height:auto;border-radius:var(--radius)}
+    a{color:var(--brand);text-underline-offset:3px}
+    .container{max-width:1050px;margin-inline:auto;padding:24px}
+    .btn{display:inline-block;font-weight:700;padding:14px 22px;border-radius:999px;border:2px solid transparent;text-decoration:none;font-size:18px}
+    .btn-primary{background:var(--brand);color:#fff}
     .btn-primary:hover{filter:brightness(0.95)}
-    .btn-ghost{background:transparent; color:var(--brand); border-color:var(--brand)}
-    header{position:sticky; top:0; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid #eee; z-index:10}
-    nav{display:flex; align-items:center; justify-content:space-between; gap:16px}
-    nav a{font-weight:700; text-decoration:none; color:var(--text)}
-    nav .menu{display:flex; gap:14px; flex-wrap:wrap}
-    nav .menu a{padding:10px 14px; border-radius:999px}
+    .btn-ghost{background:transparent;color:var(--brand);border-color:var(--brand)}
+    header{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #eee;z-index:10}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    nav a{font-weight:700;text-decoration:none;color:var(--text)}
+    nav .menu{display:flex;gap:14px;flex-wrap:wrap}
+    nav .menu a{padding:10px 14px;border-radius:999px}
     nav .menu a:hover{background:var(--brand-2)}
-
-    /* Botó hamburguesa */
-    .nav-toggle{display:none; border:1px solid #d9e7e1; background:#fff; padding:10px 14px; border-radius:999px; font-weight:700}
-    @media (max-width:900px){
-      nav{flex-wrap:wrap}
-      .nav-toggle{display:block}
-      nav .menu{display:none; width:100%; flex-direction:column; gap:8px; margin-top:10px}
-      nav .menu.open{display:flex}
-      nav .menu a{display:block}
-    }
-
+    .nav-toggle{display:none;border:1px solid #d9e7e1;background:#fff;padding:10px 14px;border-radius:999px;font-weight:700}
+    @media(max-width:900px){nav{flex-wrap:wrap}.nav-toggle{display:block}nav .menu{display:none;width:100%;flex-direction:column;gap:8px;margin-top:10px}nav .menu.open{display:flex}nav .menu a{display:block}}
     .hero{background:linear-gradient(180deg,var(--brand-2),#fff)}
-    .hero-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center}
-    .hero h1{font-size:clamp(32px,4vw,48px); line-height:1.2; margin:0 0 10px}
-    .hero p{font-size:20px; color:var(--muted)}
-    .eslogan{font-size:22px; font-style:italic; color:var(--brand); margin-bottom:20px}
-
-    .grid{display:grid; gap:18px}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+    .hero h1{font-size:clamp(32px,4vw,48px);line-height:1.2;margin:0 0 10px}
+    .hero p{font-size:20px;color:var(--muted)}
+    .eslogan{font-size:22px;font-style:italic;color:var(--brand);margin-bottom:20px}
+    .grid{display:grid;gap:18px}
     .grid-3{grid-template-columns:repeat(3,1fr)}
-    .card{background:#fff; border:1px solid #eee; border-radius:var(--radius); padding:18px}
-    .ph{background:linear-gradient(135deg,#d7efe5,#fff); border-radius:var(--radius); aspect-ratio:16/9; display:grid; place-items:center; color:#2f6d59; font-weight:700}
+    .card{background:#fff;border:1px solid #eee;border-radius:var(--radius);padding:18px}
+    .ph{background:linear-gradient(135deg,#d7efe5,#fff);border-radius:var(--radius);aspect-ratio:16/9;display:grid;place-items:center;color:#2f6d59;font-weight:700}
     @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}}
+
+    /* Carrosel de viatges */
+    .carousel{display:flex;overflow-x:auto;scroll-behavior:smooth;gap:16px;padding:16px 0}
+    .card img{width:100%;height:200px;object-fit:cover;border-radius:var(--radius)}
+    .controls{text-align:center;margin:10px 0}
+    .btn-carousel{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:700;border:2px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;margin:0 4px}
   </style>
 </head>
 <body>
@@ -86,13 +76,14 @@
       </div>
     </section>
 
+    <!-- Secció de sortides amb càrrega automàtica -->
     <section id="sortides" class="container">
       <h2>Sortides properes</h2>
-      <div class="grid grid-3">
-        <div class="card"><div class="ph">Imatge</div><h3>Costa Brava relax</h3><p>3 dies · Abril 2025</p><a class="btn btn-ghost" href="#">Detalls</a></div>
-        <div class="card"><div class="ph">Imatge</div><h3>Balneari i salut</h3><p>5 dies · Maig 2025</p><a class="btn btn-ghost" href="#">Detalls</a></div>
-        <div class="card"><div class="ph">Imatge</div><h3>Andalusia cultural</h3><p>7 dies · Juny 2025</p><a class="btn btn-ghost" href="#">Detalls</a></div>
+      <div class="controls">
+        <button class="btn-carousel" id="prev">← Anterior</button>
+        <button class="btn-carousel" id="next">Següent →</button>
       </div>
+      <div class="carousel" id="carousel"></div>
     </section>
   </main>
 
@@ -110,10 +101,31 @@
       const opened=menu.classList.toggle('open');
       toggle.setAttribute('aria-expanded',opened);
     });
-    document.addEventListener('click',e=>{
-      if(!menu.contains(e.target)&&!toggle.contains(e.target))menu.classList.remove('open');
-    });
+    document.addEventListener('click',e=>{if(!menu.contains(e.target)&&!toggle.contains(e.target))menu.classList.remove('open');});
     window.addEventListener('scroll',()=>menu.classList.remove('open'));
+
+    // Carrega la llista de viatges des de viatges/viatges.json (ignora carpeta arxivats)
+    async function carregarViatges(){
+      try{
+        const resp=await fetch('viatges/viatges.json');
+        const viatges=await resp.json();
+        const container=document.getElementById('carousel');
+        container.innerHTML='';
+        viatges.filter(v=>!v.path.includes('arxivats')).forEach(v=>{
+          const card=document.createElement('div');
+          card.className='card';
+          card.innerHTML=`<a href="${v.path}"><img src="${v.imatge}" alt="${v.titol}"></a><h3>${v.titol}</h3><p>${v.dates}</p>`;
+          container.appendChild(card);
+        });
+      }catch(e){console.error('Error carregant viatges:',e);}
+    }
+
+    carregarViatges();
+
+    // Controls del carrosel
+    const carr=document.getElementById('carousel');
+    document.getElementById('prev').onclick=()=>carr.scrollBy({left:-320,behavior:'smooth'});
+    document.getElementById('next').onclick=()=>carr.scrollBy({left:320,behavior:'smooth'});
   </script>
 </body>
 </html>
