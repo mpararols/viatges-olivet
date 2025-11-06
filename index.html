@@ -122,10 +122,18 @@
 
     carregarViatges();
 
-    // Controls del carrosel
-    const carr=document.getElementById('carousel');
-    document.getElementById('prev').onclick=()=>carr.scrollBy({left:-320,behavior:'smooth'});
-    document.getElementById('next').onclick=()=>carr.scrollBy({left:320,behavior:'smooth'});
+    
+    // Controls del carrusel (desplaça 3 targetes completes)
+    const carr = document.getElementById('carousel');
+    function scrollCarousel(direction) {
+      const card = carr.querySelector('.card');
+      if (!card) return;
+      const cardWidth = card.offsetWidth + 16; // ample + espai entre targetes
+      carr.scrollBy({ left: direction * cardWidth * 3, behavior: 'smooth' });
+    }
+    document.getElementById('prev').onclick = () => scrollCarousel(-1);
+    document.getElementById('next').onclick = () => scrollCarousel(1);
+
   </script>
 </body>
 </html>
