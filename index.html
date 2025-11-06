@@ -111,7 +111,7 @@
         const viatges=await resp.json();
         const container=document.getElementById('carousel');
         container.innerHTML='';
-        viatges.filter(v=>!v.path.includes('arxivats')).slice(0, 3).forEach(v=>{
+        viatges.filter(v=>!v.path.includes('arxivats')).forEach(v=>{
           const card=document.createElement('div');
           card.className='card';
           card.innerHTML=`<a href="${v.path}"><img src="${v.imatge}" alt="${v.titol}"></a><h3>${v.titol}</h3><p>${v.dates}</p>`;
