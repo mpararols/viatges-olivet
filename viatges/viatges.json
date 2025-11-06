@@ -1,0 +1,20 @@
+[
+  {
+    "titol": "Andalusia cultural",
+    "dates": "Del 10 al 17 de juny de 2025",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Alhambra_in_the_evening.jpg/1024px-Alhambra_in_the_evening.jpg",
+    "path": "viatges/andalusia.html"
+  },
+  {
+    "titol": "Costa Brava relax",
+    "dates": "Abril 2025",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cadaques%2C_Costa_Brava.jpg/1024px-Cadaques%2C_Costa_Brava.jpg",
+    "path": "viatges/costa-brava.html"
+  },
+  {
+    "titol": "Balneari i salut",
+    "dates": "Maig 2025",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Spa_pool.jpg/1024px-Spa_pool.jpg",
+    "path": "viatges/balneari.html"
+  }
+]
