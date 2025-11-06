@@ -6,15 +6,21 @@
     "path": "viatges/andalusia.html"
   },
   {
-    "titol": "Costa Brava relax",
-    "dates": "Abril 2025",
-    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cadaques%2C_Costa_Brava.jpg/1024px-Cadaques%2C_Costa_Brava.jpg",
-    "path": "viatges/costa-brava.html"
+    "titol": "Pirineus i natura",
+    "dates": "Juliol 2025",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Aig%C3%BCestortes_i_Estany_de_Sant_Maurici_National_Park.jpg/1024px-Aig%C3%BCestortes_i_Estany_de_Sant_Maurici_National_Park.jpg",
+    "path": "viatges/pirineus.html"
   },
   {
-    "titol": "Balneari i salut",
-    "dates": "Maig 2025",
-    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Spa_pool.jpg/1024px-Spa_pool.jpg",
-    "path": "viatges/balneari.html"
+    "titol": "Viena i els valsos",
+    "dates": "Setembre 2025",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Vienna_Sch%C3%B6nbrunn_Palace_Garden_Fountain.jpg/1024px-Vienna_Sch%C3%B6nbrunn_Palace_Garden_Fountain.jpg",
+    "path": "viatges/viena.html"
+  },
+  {
+    "titol": "Ruta del vi a La Rioja",
+    "dates": "Octubre 2025",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Vineyards_in_La_Rioja.jpg/1024px-Vineyards_in_La_Rioja.jpg",
+    "path": "viatges/rioja.html"
   }
 ]
