@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BonCamí Viatges · Agència per a Sènior</title>
+  <meta name="description" content="Viatges tranquils i segurs per a persones grans. Sortides properes, assegurança, atenció personalitzada i grups reduïts." />
+  <style>
+    /* ——— E S T I L S   B À S I C S ——— */
+    :root{
+      --bg:#fffefc;
+      --text:#1d1d1b;
+      --muted:#585858;
+      --brand:#0a6b4a;
+      --brand-2:#f0f8f5;
+      --accent:#e27e2b;
+      --radius:16px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji"; margin:0; background:var(--bg); color:var(--text); line-height:1.6; font-size:18px}
+    img{max-width:100%; height:auto; border-radius:var(--radius)}
+    a{color:var(--brand); text-underline-offset:3px}
+    .container{max-width:1050px; margin-inline:auto; padding:24px}
+    .btn{display:inline-block; font-weight:700; padding:14px 22px; border-radius:999px; border:2px solid transparent; text-decoration:none; font-size:18px}
+    .btn-primary{background:var(--brand); color:#fff}
+    .btn-primary:focus, .btn-primary:hover{filter:brightness(0.95)}
+    .btn-ghost{background:transparent; color:var(--brand); border-color:var(--brand)}
+    header{position:sticky; top:0; background:rgba(255,255,255,0.92); backdrop-filter:saturate(180%) blur(10px); border-bottom:1px solid #eee; z-index:10}
+    nav{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    nav a{font-weight:700; text-decoration:none; color:var(--text)}
+    nav .menu{display:flex; gap:14px; flex-wrap:wrap}
+    nav .menu a{padding:10px 14px; border-radius:999px}
+    nav .menu a:focus, nav .menu a:hover{background:var(--brand-2)}
+
+    /* Hero */
+    .hero{background:linear-gradient(180deg, var(--brand-2), #ffffff);}
+    .hero-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:28px; align-items:center}
+    .hero h1{font-size:clamp(32px, 4vw, 48px); line-height:1.2; margin:0 0 10px}
+    .hero p{font-size:20px; color:var(--muted)}
+    .badges{display:flex; gap:12px; flex-wrap:wrap; margin:10px 0 18px}
+    .badge{background:#fff; border:1px solid #eaeaea; padding:8px 12px; border-radius:999px; font-size:16px}
+
+    /* Cards */
+    .grid{display:grid; gap:18px}
+    .grid-3{grid-template-columns:repeat(3, 1fr)}
+    .card{background:#fff; border:1px solid #eee; border-radius:var(--radius); padding:18px}
+    .card h3{margin:8px 0 6px}
+    .price{font-weight:800}
+    .meta{color:var(--muted); font-size:16px}
+
+    /* Seccions visuals simples (imatges de farcit SVG per evitar dependències) */
+    .ph{background:linear-gradient(135deg,#d7efe5,#fff); border-radius:var(--radius); aspect-ratio:16/9; display:grid; place-items:center; color:#2f6d59; font-weight:700}
+
+    /* Llistes accessibles */
+    .list{display:grid; gap:10px; padding:0; margin:0}
+    .list li{list-style:none; display:flex; align-items:start; gap:10px}
+
+    /* FAQ */
+    details{background:#fff; border:1px solid #eee; border-radius:var(--radius); padding:14px 16px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer; font-weight:700}
+
+    /* Peu i secció contacte */
+    .contact{
+      background:var(--brand-2);
+      border-top:1px solid #e8efe9;
+      padding:28px 0 40px
+    }
+    footer{border-top:1px solid #eee; color:var(--muted); padding:18px 0}
+
+    /* Responsiu */
+    @media (max-width: 900px){.hero-grid{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}}
+
+    /* Accessibilitat addicional */
+    @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+    .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  </style>
+</head>
+<body>
+  <!-- ✅ Comentaris per migració futura a WordPress (Astra/Enroute):
+    - Mantingues l'estructura de seccions (<section id="..."></section>) i els títols
+    - Cada targeta de viatge pot acabar essent una entrada/llista de productes (CPT)
+    - Classes neutres per facilitar mapatge a la plantilla
+  -->
+
+  <header aria-label="Capçalera principal">
+    <div class="container">
+      <nav>
+        <a href="#inici" aria-label="Inici: BonCamí Viatges">
+          <!-- Logotip simple en SVG accessible -->
+          <span class="sr-only">BonCamí Viatges</span>
+          <svg width="160" height="36" viewBox="0 0 320 72" aria-hidden="true">
+            <text x="0" y="28" font-size="28" font-weight="800" fill="var(--brand)">BonCamí</text>
+            <text x="142" y="28" font-size="24" fill="var(--accent)">Viatges</text>
+          </svg>
+        </a>
+        <div class="menu" role="navigation" aria-label="Menú">
+          <a href="#sortides">Sortides</a>
+          <a href="#serveis">Serveis</a>
+          <a href="#opinions">Opinions</a>
+          <a href="#faq">Dubtes</a>
+          <a href="#contacte" class="btn btn-primary">Truca'ns</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inici">
+    <section class="hero" aria-label="Benvinguda">
+      <div class="container hero-grid">
+        <div>
+          <h1>Viatges tranquils, segurs i a bon ritme</h1>
+          <p>Especialistes en persones grans: rutes suaus, hotels cèntrics, assistència 24/7 i grups reduïts. Ens ocupem de tot perquè tu només gaudeixis.</p>
+          <div class="badges" aria-label="Punts forts">
+            <span class="badge">✔️ Transport porta a porta</span>
+            <span class="badge">✔️ Assegurança inclosa</span>
+            <span class="badge">✔️ Acompanyant de grup</span>
+          </div>
+          <p>
+            <a class="btn btn-primary" href="#sortides">Veure sortides properes</a>
+            <a class="btn btn-ghost" href="#contacte">Demana informació</a>
+          </p>
+        </div>
+        <div class="ph" aria-hidden="true">Foto de grup feliç en viatge</div>
+      </div>
+    </section>
+
+    <section id="sortides" class="container" aria-labelledby="t-sortides">
+      <h2 id="t-sortides">Sortides properes</h2>
+      <p class="meta">Propostes pensades per a ritmes tranquils. Places limitades.</p>
+      <div class="grid grid-3" role="list">
+        <article class="card" role="listitem">
+          <div class="ph" aria-hidden="true">Costa Brava relax</div>
+          <h3>Costa Brava relax (3 dies)</h3>
+          <p class="meta">Hotel a primera línia, passejades suaus, visita a Jardins de Cap Roig.</p>
+          <p class="price">des de 245€</p>
+          <p><a class="btn btn-ghost" href="#contacte" aria-label="Demana informació Costa Brava relax">+ Informació</a></p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="ph" aria-hidden="true">Balneari i salut</div>
+          <h3>Balneari i salut (5 dies)</h3>
+          <p class="meta">Pensió completa, circuit termal, revisió lleugera i tallers de benestar.</p>
+          <p class="price">des de 499€</p>
+          <p><a class="btn btn-ghost" href="#contacte" aria-label="Demana informació Balneari i salut">+ Informació</a></p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="ph" aria-hidden="true">Andalusia cultural</div>
+          <h3>Andalusia cultural (7 dies)</h3>
+          <p class="meta">Còrdova, Sevilla i Granada al teu ritme. Entrades i guia local incloses.</p>
+          <p class="price">des de 889€</p>
+          <p><a class="btn btn-ghost" href="#contacte" aria-label="Demana informació Andalusia cultural">+ Informació</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="serveis" class="container" aria-labelledby="t-serveis">
+      <h2 id="t-serveis">Serveis per viatjar sense preocupacions</h2>
+      <ul class="list" role="list">
+        <li><span aria-hidden="true">🧭</span> Itineraris senzills i amb descansos freqüents.</li>
+        <li><span aria-hidden="true">🏨</span> Hotels accessibles i ben situats.</li>
+        <li><span aria-hidden="true">🚌</span> Transport confortable i assegurança de viatge.</li>
+        <li><span aria-hidden="true">🤝</span> Acompanyament en tot moment i assistència de proximitat.</li>
+        <li><span aria-hidden="true">💊</span> Recordatoris de medicació i dieta (si cal, ho coordinem prèviament).</li>
+      </ul>
+    </section>
+
+    <section id="opinions" class="container" aria-labelledby="t-opinions">
+      <h2 id="t-opinions">Què en diuen els viatgers</h2>
+      <div class="grid grid-3">
+        <blockquote class="card">“Hem anat sense presses i ho hem gaudit molt. L’acompanyant, un 10.” — <strong>Carme (72)</strong></blockquote>
+        <blockquote class="card">“Hotels molt cèntrics i menjar adaptat. Ens hi hem sentit molt cuidats.” — <strong>Jordi (78)</strong></blockquote>
+        <blockquote class="card">“Tornaríem a repetir. Molt fàcil tot, i el grup, fantàstic.” — <strong>Maria (69)</strong></blockquote>
+      </div>
+    </section>
+
+    <section id="faq" class="container" aria-labelledby="t-faq">
+      <h2 id="t-faq">Dubtes freqüents</h2>
+      <details>
+        <summary>Quin ritme tenen les visites?</summary>
+        <p>Pensem els recorreguts amb parades i accessos fàcils. Sempre hi ha alternatives més suaus.</p>
+      </details>
+      <details>
+        <summary>Què passa si em trobo malament?</summary>
+        <p>Disposem d’assegurança i telèfon d’assistència 24/7. L’acompanyant t’ajuda en tot moment.</p>
+      </details>
+      <details>
+        <summary>Hi ha descomptes per grups?</summary>
+        <p>Per a grups de 10 o més persones, fem pressupost especial. Consulta’ns sense compromís.</p>
+      </details>
+    </section>
+
+    <section id="contacte" class="contact" aria-labelledby="t-contacte">
+      <div class="container">
+        <h2 id="t-contacte">Contacte</h2>
+        <p class="meta">Truca’ns o envia’ns un missatge i et respondrem el mateix dia feiner.</p>
+        <div class="grid" style="grid-template-columns:1fr 1fr; gap:20px">
+          <div class="card">
+            <h3>Telèfon directe</h3>
+            <p><a class="btn btn-primary" href="tel:+34900123456" aria-label="Truca ara">📞 Truca al 900 123 456</a></p>
+            <p><a class="btn btn-ghost" href="https://wa.me/34900123456" target="_blank" rel="noopener">💬 WhatsApp</a></p>
+            <p class="meta">Dl-Dv 9:00–13:30 · 16:00–19:00</p>
+          </div>
+          <form class="card" aria-label="Formulari de contacte" onsubmit="return handleSubmit(event)">
+            <label>Nom i cognoms<br>
+              <input required name="nom" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc" />
+            </label>
+            <br><br>
+            <label>Telèfon o correu<br>
+              <input required name="contacte" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc" />
+            </label>
+            <br><br>
+            <label>Missatge<br>
+              <textarea name="missatge" rows="4" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc"></textarea>
+            </label>
+            <br>
+            <button class="btn btn-primary" type="submit">Envia la sol·licitud</button>
+            <p id="ok" role="status" aria-live="polite" style="display:none; margin-top:10px">✅ Hem preparat el teu missatge. Ara només cal enviar-lo des del teu correu.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>BonCamí Viatges</strong> · Agència per a persones grans · NRT 00000000 · <a href="#">Avís legal</a> · <a href="#">Política de privacitat</a></p>
+      <p>© <span id="year"></span> BonCamí Viatges</p>
+    </div>
+  </footer>
+
+  <script>
+    // Millores petites d'usabilitat sense dependències
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Formulari: generem un mailto per compatibilitat amb GitHub Pages (sense backend)
+    function handleSubmit(ev){
+      ev.preventDefault();
+      const f = ev.currentTarget;
+      const nom = encodeURIComponent(f.nom.value.trim());
+      const contacte = encodeURIComponent(f.contacte.value.trim());
+      const msg = encodeURIComponent(f.missatge.value.trim());
+      const subject = `[BonCamí] Sol·licitud d'informació de ${nom}`;
+      const body = `Nom i cognoms: ${nom}%0D%0AContacte: ${contacte}%0D%0AMissatge:%0D%0A${msg}`;
+      const mailto = `mailto:info@boncami.cat?subject=${subject}&body=${body}`;
+      document.getElementById('ok').style.display='block';
+      window.location.href = mailto;
+      return false;
+    }
+  </script>
+</body>
+</html>
