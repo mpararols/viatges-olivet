@@ -107,7 +107,7 @@
     // Carrega la llista de viatges des de viatges/viatges.json (ignora carpeta arxivats)
     async function carregarViatges(){
       try{
-        const resp=await fetch('viatges/viatges.json');
+        const resp = await fetch('viatges/viatges.json?cacheBust=' + Date.now(), { cache: 'no-store' });
         const viatges=await resp.json();
         const container=document.getElementById('carousel');
         container.innerHTML='';
