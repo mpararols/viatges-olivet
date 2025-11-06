@@ -32,6 +32,17 @@
     nav .menu a{padding:10px 14px; border-radius:999px}
     nav .menu a:focus, nav .menu a:hover{background:var(--brand-2)}
 
+    /* Navegació responsive (hamburger) */
+    .nav-toggle{display:none; border:1px solid #d9e7e1; background:#fff; padding:10px 14px; border-radius:999px; font-weight:700}
+    @media (max-width: 900px){
+      nav{flex-wrap:wrap}
+      .nav-toggle{display:block}
+      nav .menu{display:none; width:100%; flex-direction:column; gap:8px; margin-top:10px}
+      nav .menu.open{display:flex}
+      nav .menu a{display:block}
+      .theme-picker{width:100%; order:3}
+    }
+
     /* Hero */
     .hero{background:linear-gradient(180deg, var(--brand-2), #ffffff);}
     .hero-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:28px; align-items:center}
@@ -74,6 +85,29 @@
     /* Accessibilitat addicional */
     @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
     .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+      /* —— Variacions d'estil accessibles —— */
+    .chip{border:1px solid #d7e6df; background:#fff; padding:8px 12px; border-radius:999px; font-size:16px; cursor:pointer}
+    .chip[aria-pressed="true"]{background:var(--brand-2); border-color:var(--brand);}
+    .theme-picker{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+    .theme-picker small{color:var(--muted)}
+
+    /* Alt contrast */
+    body[data-theme="contrast"]{--bg:#ffffff; --text:#000; --muted:#222; --brand:#000; --brand-2:#ffe08a; --accent:#cc0000}
+    body[data-theme="contrast"] a{outline:3px solid transparent}
+    body[data-theme="contrast"] a:focus-visible, body[data-theme="contrast"] button:focus-visible{outline:3px solid #000; outline-offset:2px}
+
+    /* Sépia / lectura càlida */
+    body[data-theme="sepia"]{--bg:#fbf3e4; --text:#302a22; --muted:#5b4d3f; --brand:#7a4b26; --brand-2:#f4e7d3; --accent:#b4632a}
+
+    /* Tipus gran */
+    body[data-font="xl"]{font-size:20px}
+    body[data-font="xxl"]{font-size:22px}
+
+    /* Impressió neta */
+    @media print{ header, .theme-picker, .btn{display:none!important}; .card{break-inside:avoid} }
+
+    /* Focus visible per a tots els temes */
+    :where(a,button,input,textarea,summary):focus-visible{outline:3px solid var(--brand); outline-offset:2px; border-radius:8px}
   </style>
 </head>
 <body>
@@ -94,12 +128,21 @@
             <text x="142" y="28" font-size="24" fill="var(--accent)">Viatges</text>
           </svg>
         </a>
-        <div class="menu" role="navigation" aria-label="Menú">
+        <button class="nav-toggle" aria-controls="menu" aria-expanded="false" aria-label="Obre el menú">☰ Menú</button>
+        <div class="menu" id="menu" role="navigation" aria-label="Menú">
           <a href="#sortides">Sortides</a>
           <a href="#serveis">Serveis</a>
           <a href="#opinions">Opinions</a>
           <a href="#faq">Dubtes</a>
           <a href="#contacte" class="btn btn-primary">Truca'ns</a>
+        </div>
+        <div class="theme-picker" aria-label="Opcions d'estil" role="group">
+          <small>Visualització:</small>
+          <button class="chip" data-action="theme" data-value="default" aria-pressed="true">Estàndard</button>
+          <button class="chip" data-action="theme" data-value="contrast">Alt contrast</button>
+          <button class="chip" data-action="theme" data-value="sepia">Sépia</button>
+          <button class="chip" data-action="font" data-value="xl">Tipus gran</button>
+          <button class="chip" data-action="font" data-value="xxl">Molt gran</button>
         </div>
       </nav>
     </div>
@@ -246,6 +289,57 @@
       window.location.href = mailto;
       return false;
     }
+
+    // Menú mòbil: mostrar/amagar
+    (function(){
+      const toggle = document.querySelector('.nav-toggle');
+      const menu = document.getElementById('menu');
+      if(!toggle || !menu) return;
+      toggle.addEventListener('click', ()=>{
+        const opened = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', opened);
+      });
+    })()
+      // Preferències de visualització (tema i mida de lletra) amb persistència
+    (function(){
+      const body = document.body;
+      const storedTheme = localStorage.getItem('bc_theme') || 'default';
+      const storedFont = localStorage.getItem('bc_font') || '';
+      if(storedTheme !== 'default') body.setAttribute('data-theme', storedTheme);
+      if(storedFont) body.setAttribute('data-font', storedFont);
+      // Actualitza estat visual dels botons
+      function syncChips(){
+        document.querySelectorAll('.theme-picker [data-action]')
+          .forEach(btn=>{
+            const a = btn.getAttribute('data-action');
+            const v = btn.getAttribute('data-value');
+            const on = (a==='theme' ? (storedTheme===v || (storedTheme==='default' && v==='default')) : (storedFont===v));
+            btn.setAttribute('aria-pressed', on);
+          });
+      }
+      syncChips();
+      document.addEventListener('click', (e)=>{
+        const b = e.target.closest('.theme-picker [data-action]');
+        if(!b) return;
+        const act = b.getAttribute('data-action');
+        const val = b.getAttribute('data-value');
+        if(act==='theme'){
+          if(val==='default') body.removeAttribute('data-theme'); else body.setAttribute('data-theme', val);
+          localStorage.setItem('bc_theme', val);
+        } else if(act==='font'){
+          body.setAttribute('data-font', val);
+          localStorage.setItem('bc_font', val);
+        }
+        // refresca estat dels botons
+        document.querySelectorAll('.theme-picker [data-action]')
+          .forEach(btn=>{
+            const a = btn.getAttribute('data-action');
+            const v = btn.getAttribute('data-value');
+            const pressed = (a==='theme') ? ( (body.getAttribute('data-theme')||'default')===v ) : ( (body.getAttribute('data-font')||'')===v );
+            btn.setAttribute('aria-pressed', pressed);
+          });
+      });
+    })();
   </script>
 </body>
 </html>
