@@ -375,6 +375,12 @@ function showNewsletterModal({ok=true}={}){
       </div>
     </div>`;
   document.body.appendChild(backdrop);
+  
+  if (ok) {
+    setTimeout(() => {
+      try { backdrop.remove(); } catch {}
+    }, 4000);
+  }
 
   const close = () => { backdrop.remove(); document.removeEventListener('keydown', onKey); };
   const onKey = (e) => { if(e.key === 'Escape') close(); };
