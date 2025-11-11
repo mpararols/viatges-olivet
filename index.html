@@ -88,6 +88,11 @@
 
     /* ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
     footer{border-top:1px solid #eee;background:#fff}
+    .footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+    .footer-info h3{margin:8px 0 6px}
+    .footer-info p{margin:4px 0}
+    .footer-map iframe{width:100%;height:280px;border:0;border-radius:var(--radius)}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr}}
     /* ====== END FOOTER ====== */
     </style>
   <!-- Google Fonts: Elegància (Merriweather) + Confiança (Source Sans 3) -->
@@ -114,9 +119,6 @@
         <!-- MENÚ PRINCIPAL: mantén els mateixos enllaços i ordre a totes les pàgines -->
         <div class="menu" id="menu">
           <a href="#sortides">Sortides</a>
-          <a href="#quisom">Qui som?</a>
-          <a href="#faq">Dubtes</a>
-          <a href="#contacte">Contacte</a>
         </div>
       </nav>
     </div>
@@ -158,37 +160,51 @@
         <button class="btn-carousel" id="prev">← Anteriors</button>
         <button class="btn-carousel" id="next">Següents →</button>
       </div>
-      <!-- Missatge de fallback si no hi ha dades o hi ha un error -->
       <p id="msg-viatges" style="display:none;color:var(--muted)">No s'han pogut carregar els viatges ara mateix. Torna-ho a provar més tard.</p>
     </section>
+
+    <!-- ====== QUI SOM (secció editable de text) ====== -->
     
-    <!-- FORMULARI DE CONTACTE SIMPLE -->
-    <section id="newsletter" class="container">
-      <div class="contact-box" style="margin-top:40px;padding:28px;border:1px solid #ddd;border-radius:var(--radius);max-width:600px;margin-inline:auto;text-align:center;">
-      <h3>Vols rebre informació dels nous viatges?</h3>
-        <form action="#" method="post">
-        <input type="email" name="email" placeholder="El teu correu" required style="padding:12px;border:1px solid #ccc;border-radius:var(--radius);width:100%;max-width:400px;display:block;margin:12px auto;">
-        <label style="display:block;font-size:14px;margin-top:8px;">
-        <input type="checkbox" required> Accepto la política de privacitat
-        </label>
-        <button class="btn btn-primary" type="submit" style="margin-top:14px;">Subscriu-m'hi</button>
-        </form>
-      </div>
-    </section>
 
-  </main>
+    <!-- ====== FAQ / DUBTES (secció editable de text) ====== -->
+    
 
-  <!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
-  <footer>
-    <div class="container">
-      <p>© <span id="year"></span> Vacances Olivet · Compartim viatges, creem records</p>
+    <!-- ====== CONTACTE (secció editable de text; substitueix per dades reals) ====== -->
+    
+    <!-- Newsletter -->
+  <section class="registre-newsletter container">
+    <form id="newsletter-form" action="#" method="post">
+      <h3>Vols rebre informació de nous viatges?</h3>
+      <input id="newsletter-email" type="email" name="email" placeholder="El teu correu" required style="padding:12px 14px;border:1px solid #ccc;border-radius:8px;width:100%;max-width:350px;display:block;margin-bottom:12px;">
+      <label class="check" style="display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:14px;">
+        <input id="newsletter-accept" type="checkbox" required>
+        Accepto la política de protecció de dades i el tractament d’informació.
+      </label>
+      <button type="submit" class="btn btn-primary">Subscriu-m'hi</button>
+    </form>
+  </section>
+</main>
+
+  <!-- ====== BEGIN FOOTER (comú) ====== -->
+<footer>
+  <div class="container footer-grid">
+    <div class="footer-info">
+      <h3>Vacances Olivet</h3>
+      <p><strong>Tel.:</strong> 972 57 35 92</p>
+      <p><strong>Correu:</strong> info@vacances-olivet.cat</p>
+      <p><strong>Horari:</strong> Dl–Dv 10:00–13:30 / 16:30–19:30</p>
+      <p>© <span id="year"></span> Vacances Olivet · Compartim moments, fem camí</p>
     </div>
-  </footer>
-  <!-- ====== END FOOTER ====== -->
+    <div class="footer-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2959.367748859554!2d2.7617044128474744!3d42.12100987109601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bac21c47fc192b%3A0xc5daaa04183b6942!2sOlivet%20Tours!5e0!3m2!1ca!2ses!4v1762884333295!5m2!1ca!2ses" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</footer>
+<!-- ====== END FOOTER ====== -->
 
   <script>
     // ====== FOOTER: Any actual (no tocar) ======
-    document.getElementById('year').textContent=new Date().getFullYear();
+    (function(){const yearEl=document.getElementById('year'); if(yearEl){yearEl.textContent=new Date().getFullYear();}})();
 
     // ====== MENÚ MÒBIL (no tocar) ======
     const toggle=document.querySelector('.nav-toggle');
@@ -265,6 +281,27 @@
     const ro = new ResizeObserver(updateArrows);
     ro.observe(carr);
     updateArrows();
+
+    // ====== NEWSLETTER: enviar per correu (proves) ======
+    const form = document.getElementById('newsletter-form');
+    if(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const email = (document.getElementById('newsletter-email')||{}).value||'';
+        const ok = (document.getElementById('newsletter-accept')||{}).checked;
+        if(!email || !ok){return;}
+        const subject = encodeURIComponent('ALTA MAILING');
+        const body = encodeURIComponent(
+          `Email: ${email}
+Consentiment RGPD: Sí
+Origen: portada Vacances Olivet
+Data: ${new Date().toLocaleString()}`
+        );
+        const mailto = `mailto:roser.pararols@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = mailto;
+        form.reset();
+      });
+    }
   </script>
 
   <noscript>
