@@ -86,6 +86,57 @@
     .btn-carousel:disabled{opacity:0.5;cursor:not-allowed;filter:grayscale(0.2)}
     .ph{background:linear-gradient(135deg,#d7efe5,#fff);border-radius:var(--radius);aspect-ratio:16/9;display:grid;place-items:center;color:#2f6d59;font-weight:700}
 
+    /* ====== NEWSLETTER ======= */
+    #newsletter-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Tot centrat */
+      gap: 14px; /* Separació agradable entre elements */
+    }
+  
+    #newsletter-form input[type="email"] {
+      width: 100%;
+      max-width: 350px;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 16px;
+    }
+  
+    #newsletter-form .check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      max-width: 420px;
+      text-align: left;
+    }
+  
+    #newsletter-form button {
+      margin-top: 6px;
+    }
+
+    /* Feedback newsletter (èxit/error) */
+    .newsletter-feedback{
+      margin-top:16px;
+      padding:18px;
+      border-radius:12px;
+      border:1px solid #cfe7dc;
+      background:#f1faf5;
+      color:#114a34;
+      text-align:center;
+    }
+    .newsletter-feedback h4{
+      margin:0 0 6px; font-size:18px;
+    }
+    .newsletter-feedback small{
+      color:#2f6d59;
+    }
+    .newsletter-error{
+      border-color:#f6c5c5; background:#fff6f6; color:#7a2222;
+    }
+
+
     /* ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
     footer{border-top:1px solid #eee;background:#fff}
     /* ====== END FOOTER ====== */
@@ -278,27 +329,48 @@
     updateArrows();
   </script>
 
-  <script>
-  document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    if (!form.checkValidity()) return;
-  
-    const data = new FormData(form);
-    const resp = await fetch(form.action, {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
-  
-    if (resp.ok) {
-      form.reset();
-      alert('Gràcies! Hem registrat la teva sol·licitud d’alta.');
-    } else {
-      alert('No s’ha pogut enviar ara mateix. Torna-ho a provar més tard.');
-    }
+<script>
+document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  if (!form.checkValidity()) return;
+
+  // envia a Formspree
+  const data = new FormData(form);
+  const resp = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept':'application/json' }
   });
-  </script>
+
+  // contenidor on mostrarem el feedback (sense tocar l'HTML original)
+  const box = document.querySelector('#newsletter .contact-box');
+  const oldFeedback = box.querySelector('.newsletter-feedback');
+  if (oldFeedback) oldFeedback.remove();
+
+  const feedback = document.createElement('div');
+  feedback.className = 'newsletter-feedback';
+
+  if (resp.ok) {
+    form.style.display = 'none';     // amaga el formulari
+    feedback.innerHTML = `
+      <h4>✓ Alta rebuda correctament</h4>
+      <p>Gràcies! Hem registrat la teva sol·licitud d’alta al mailing.</p>
+      <small>Pots tancar aquesta finestra o continuar navegant.</small>
+    `;
+    box.appendChild(feedback);
+    form.reset();
+  } else {
+    feedback.classList.add('newsletter-error');
+    feedback.innerHTML = `
+      <h4>Hi ha hagut un problema</h4>
+      <p>No s’ha pogut enviar ara mateix. Torna-ho a provar més tard.</p>
+    `;
+    box.appendChild(feedback);
+  }
+});
+</script>
+
 
 
   <noscript>
