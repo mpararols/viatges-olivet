@@ -165,15 +165,27 @@
     <section id="newsletter" class="container">
       <div class="contact-box" style="margin-top:40px;padding:28px;border:1px solid #ddd;border-radius:var(--radius);max-width:600px;margin-inline:auto;text-align:center;">
       <h3>Vols rebre informació dels nous viatges?</h3>
-        <form action="#" method="post">
-        <input type="email" name="email" placeholder="El teu correu" required style="padding:12px;border:1px solid #ccc;border-radius:var(--radius);width:100%;max-width:400px;display:block;margin:12px auto;">
-        <label style="display:block;font-size:14px;margin-top:8px;">
-        <input type="checkbox" required> Accepto la política de privacitat
-        </label>
-        <button class="btn btn-primary" type="submit" style="margin-top:14px;">Subscriu-m'hi</button>
-        </form>
+            <form id="newsletter-form" action="https://formspree.io/f/xdkyoypq" method="POST">
+              <input type="email" name="email" placeholder="El teu correu" required>
+              <label class="check">
+                <input type="checkbox" name="consent" value="yes" required>
+                Accepto la política de protecció de dades i el tractament d’informació.
+              </label>
+            
+              <!-- personalitza l'assumpte -->
+              <input type="hidden" name="_subject" value="ALTA MAILING">
+              <!-- redirecció opcional després d'enviar -->
+              <input type="hidden" name="_next" value="https://vacances-olivet.github.io/gracies.html">
+              <!-- honeypot (no l'omplis mai) -->
+              <input type="text" name="_gotcha" style="display:none">
+            
+              <button type="submit" class="btn btn-primary">Subscriu-m'hi</button>
+            </form>
       </div>
     </section>
+
+
+
 
   </main>
 
@@ -265,6 +277,29 @@
     ro.observe(carr);
     updateArrows();
   </script>
+
+  <script>
+  document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) return;
+  
+    const data = new FormData(form);
+    const resp = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+  
+    if (resp.ok) {
+      form.reset();
+      alert('Gràcies! Hem registrat la teva sol·licitud d’alta.');
+    } else {
+      alert('No s’ha pogut enviar ara mateix. Torna-ho a provar més tard.');
+    }
+  });
+  </script>
+
 
   <noscript>
     <!-- Missatge si l'usuari té el JavaScript desactivat -->
