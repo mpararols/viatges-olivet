@@ -3,112 +3,219 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Viatge — BonCamí Viatges</title>
+  <title>Vacances Olivet · Compartim moments, fem camí</title>
+  <meta name="description" content="Viatges tranquils i segurs pensats per a tu. Sortides properes, assegurança, atenció personalitzada i grups reduïts." />
+
+  <!--
+    🔧 GUIA RÀPIDA D'EDICIÓ
+    ──────────────────────
+    1) La CAPÇALERA i el PEU (FOOTER) s'han de COPIAR-ENGANXAR IDÈNTICS a totes les pàgines.
+       -> Cerca els blocs marcats com: BEGIN HEADER / END HEADER i BEGIN FOOTER / END FOOTER.
+    2) El contingut de portada és a <main> i està dividit en seccions clarament comentades:
+       - HERO (imatge + eslògan)
+       - SORTIDES (carrusel que es carrega des de viatges/viatges.json)
+       - QUI SOM, FAQ i CONTACTE (seccions simples de text que poden ampliar-se)
+    3) Per afegir noves targetes de viatge, edita el fitxer: viatges/viatges.json
+       Cada viatge ha de tenir: { "titol", "dates", "imatge", "path" }
+    4) Per crear una pàgina interior (detall d'un viatge), crea un nou .html i COPIA la mateixa capçalera i peu.
+  -->
+
   <style>
     :root{
-      --bg:#fffefc;
-      --text:#1d1d1b;
-      --muted:#585858;
-      --brand:#0a6b4a;
-      --brand-2:#f0f8f5;
-      --accent:#e27e2b;
+      --bg:#fffefc; --text:#1d1d1b; --muted:#585858;
+      --brand:#0a6b4a; --brand-2:#f0f8f5; --accent:#e27e2b;
       --radius:16px;
     }
-    body{font-family:system-ui,Segoe UI,Roboto; margin:0; background:var(--bg); color:var(--text); line-height:1.6; font-size:18px}
-    img{max-width:100%; border-radius:var(--radius)}
-    a{color:var(--brand); text-underline-offset:3px; text-decoration:none}
-    .container{max-width:1050px; margin:auto; padding:24px}
-    .btn{display:inline-block; padding:14px 22px; border-radius:999px; font-weight:700; border:2px solid transparent}
-    .btn-primary{background:var(--brand); color:#fff}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;margin:0;background:var(--bg);color:var(--text);line-height:1.6;font-size:18px}
+    img{max-width:100%;height:auto;border-radius:var(--radius)}
+    a{color:var(--brand);text-underline-offset:3px}
+    .container{max-width:1050px;margin-inline:auto;padding:24px}
+    .btn{display:inline-block;font-weight:700;padding:14px 22px;border-radius:999px;border:2px solid transparent;text-decoration:none;font-size:18px}
+    .btn-primary{background:var(--brand);color:#fff}
     .btn-primary:hover{filter:brightness(0.95)}
+    .btn-ghost{background:transparent;color:var(--brand);border-color:var(--brand)}
 
+    /* ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
     header{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #eee;z-index:10}
-    nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    nav a{font-weight:700;color:var(--text)}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    nav a{font-weight:700;text-decoration:none;color:var(--text)}
     nav .menu{display:flex;gap:14px;flex-wrap:wrap}
-    .nav-toggle{display:none;}
-    @media(max-width:900px){.nav-toggle{display:block;border:1px solid #ccc;background:#fff;padding:10px 14px;border-radius:999px}.menu{display:none;width:100%;flex-direction:column;gap:8px;margin-top:10px}.menu.open{display:flex}}
+    nav .menu a{padding:10px 14px;border-radius:999px}
+    nav .menu a:hover{background:var(--brand-2)}
+    .nav-toggle{display:none;border:1px solid #d9e7e1;background:#fff;padding:10px 14px;border-radius:999px;font-weight:700}
+    @media(max-width:900px){
+      nav{flex-wrap:wrap}
+      .nav-toggle{display:block}
+      nav .menu{display:none;width:100%;flex-direction:column;gap:8px;margin-top:10px}
+      nav .menu.open{display:flex}
+      nav .menu a{display:block}
+    }
+    /* ====== END HEADER ====== */
 
-    .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin-top:32px}
-    @media(max-width:900px){.intro-grid{grid-template-columns:1fr}}
+    /* ====== HERO (portada) ====== */
+    .hero{background:linear-gradient(180deg,var(--brand-2),#fff)}
+    .hero-grid{display:grid;grid-template-columns:1fr 2fr;gap:32px;align-items:center}
+    .hero h1{font-family:'Merriweather', Georgia, 'Times New Roman', serif;font-size:clamp(22px,2.8vw,32px);line-height:1.25;margin:0 0 6px;font-weight:800;letter-spacing:-0.01em}
+    .hero p{font-size:18px;color:var(--muted);margin:0}
+    .eslogan{font-size:clamp(18px,2.2vw,22px);font-weight:700;color:var(--text);margin:0}
+    .hero-image{grid-column:1 / -1;border-radius:var(--radius);overflow:hidden}
+    .hero-image img{width:100%;height:auto;display:block;border-radius:var(--radius);object-fit:cover}
 
-    .intro h1{margin:0;font-size:clamp(28px,4vw,44px)}
-    .meta{color:var(--muted);font-size:18px;margin-bottom:10px}
+    /* ====== TARGETES I GRIDS ====== */
+    .grid{display:grid;gap:18px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .card{
+      background:#fff;border:1px solid #eee;border-radius:var(--radius);padding:18px;
+      /* carrusel: amplada fixa i snap */
+      flex:0 0 300px;scroll-snap-align:start;
+    }
+    .card img{width:100%;height:200px;object-fit:cover;border-radius:var(--radius)}
 
-    .detail{margin-top:30px;padding:24px;background:#fff;border:1px solid #eee;border-radius:var(--radius)}
-    .center{text-align:center}
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .card{flex:0 0 85vw} /* targeta ampla i còmoda en mòbil */
+    }
 
-    footer{margin-top:40px;padding:20px 0;border-top:1px solid #eee;text-align:center;color:var(--muted)}
+    /* ====== CARROSEL DE SORTIDES ====== */
+    .carousel{display:flex;overflow-x:auto;scroll-behavior:smooth;gap:16px;padding:16px 0;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none}
+    .carousel::-webkit-scrollbar{display:none}
+    .controls{text-align:center;margin:10px 0}
+    .btn-carousel{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:700;border:2px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;margin:0 4px}
+    .btn-carousel:disabled{opacity:0.5;cursor:not-allowed;filter:grayscale(0.2)}
+    .ph{background:linear-gradient(135deg,#d7efe5,#fff);border-radius:var(--radius);aspect-ratio:16/9;display:grid;place-items:center;color:#2f6d59;font-weight:700}
 
-    .intro h1{margin:0;font-size:clamp(28px,4vw,44px)}
-    .meta{color:var(--muted);font-size:18px;margin-bottom:10px}
-
-    .detail{margin-top:30px;padding:24px;background:#fff;border:1px solid #eee;border-radius:var(--radius)}
-
-    footer{margin-top:40px;padding:20px 0;border-top:1px solid #eee;text-align:center;color:var(--muted)}
-  </style>
+    /* ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
+    footer{border-top:1px solid #eee;background:#fff}
+    /* ====== END FOOTER ====== */
+    </style>
+  <!-- Google Fonts: Elegància (Merriweather) + Confiança (Source Sans 3) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
   <header>
     <div class="container">
       <nav>
-        <a href="index.html" aria-label="Torna a l'inici">
-          <svg width="160" height="36" viewBox="0 0 320 72" aria-hidden="true">
-            <text x="0" y="28" font-size="28" font-weight="800" fill="var(--brand)">BonCamí</text>
-            <text x="142" y="28" font-size="24" fill="var(--accent)">Viatges</text>
-          </svg>
+        <!-- LOGOTIP / ENLLAÇ A INICI -->
+        <a href="#inici" aria-label="Inici: Vacances Olivet">
+          <svg width="200" height="40" viewBox="0 0 360 72" aria-hidden="true">
+  <text x="0" y="30" font-size="28" font-weight="800" fill="var(--brand)">Vacances</text>
+  <text x="160" y="30" font-size="24" fill="var(--accent)">Olivet</text>
+</svg>
         </a>
+
+        <!-- BOTÓ MENÚ (MÒBIL) -->
         <button class="nav-toggle" aria-controls="menu" aria-expanded="false">☰ Menú</button>
+
+        <!-- MENÚ PRINCIPAL: mantén els mateixos enllaços i ordre a totes les pàgines -->
         <div class="menu" id="menu">
-          <a href="index.html#sortides">Sortides</a>
-          <a href="index.html#quisom">Qui som?</a>
-          <a href="index.html#faq">Dubtes</a>
-          <a href="index.html#contacte">Contacte</a>
+          <a href="#sortides">Sortides</a>
+          <a href="#quisom">Qui som?</a>
+          <a href="#faq">Dubtes</a>
+          <a href="#contacte">Contacte</a>
         </div>
       </nav>
     </div>
   </header>
+  <!-- ====== END HEADER ====== -->
 
-  <main>
-    <!-- PÀGINA DE VIATGE: copia aquest fitxer com per ex. `viatge-andalusia.html` i canvia
-         1) Títol i dates
-         2) Descripció breu (esquerra)
-         3) URL i alt de la imatge (dreta)
-         4) Text de la descripció llarga (secció .detail)
-         5) Enllaç al PDF del programa -->
-    <section class="container intro">
-      <!-- Bloc introductori: Títol + dates + resum a l'esquerra i IMATGE a la dreta -->
-      <div class="intro-grid">
-        <div>
-          <h1><!-- TÍTOL DEL VIATGE -->Andalusia cultural</h1>
-          <p class="meta"><!-- DATES DEL VIATGE -->Del 10 al 17 de juny de 2025</p>
-          <p><!-- DESCRIPCIÓ BREU -->Descobreix les joies del sud d’Espanya: Còrdova, Sevilla i Granada. Un recorregut cultural i gastronòmic amb allotjament cèntric, visites guiades i temps lliure per gaudir-ne al teu ritme.</p>
+  <main id="inici">
+    <!-- ====== HERO (portada: títol, eslògan i imatge) ====== -->
+    <section class="hero">
+      <div class="container">
+        <!-- Fila superior: ESLOGAN (esquerra) i DESCRIPCIÓ (dreta) -->
+        <div class="hero-grid">
+          <div>
+            <!-- ⭐ ESLOGAN (edita el text) -->
+            <h1>Compartim viatges,<br>creem records</h1>
+            
+          </div>
+          <div class="desc">
+            <!-- 📝 DESCRIPCIÓ EMPRESA (edita el text) -->
+            <p><strong>Vacances Olivet</strong> neix amb l’experiència d’un llegat familiar i la mirada fresca d’una nova generació.</p>
+            <p>Creiem que les veritables vacances no són per desconnectar del món, sinó <strong>per viure’l intensament</strong>. Per això organitzem <strong>viatges en grup</strong> on cada detall està pensat amb cura: rutes completes, <em>visites interessants</em> i <strong>zero preocupacions</strong>.</p>
+            <p>Tu només has de venir amb ganes de <strong>gaudir</strong> i <strong>descobrir</strong> el món; de la resta, <strong>ens en cuidem nosaltres</strong>. Perquè <em>Vacances</em> vol dir <strong>viure</strong>, <strong>compartir</strong> i <strong>passar-ho bé</strong> sense haver de pensar en res més.</p>
+          </div>
+          <!-- Fila inferior: IMATGE a tot l'ample -->
+          <div class="hero-image">
+            <!-- 📷 Imatge HERO (canvia la URL si ho necessites). Consell: 16:9 és una relació d'aspecte molt flexible. -->
+            <!-- Si la imatge és dins del mateix repositori, també pots usar: src="imatges/portada.jpg" -->
+            <img src="https://raw.githubusercontent.com/mpararols/viatges-olivet/main/imatges/portada.jpg" alt="Portada Vacances Olivet: destí de viatge" loading="eager" decoding="async">
+          </div>
         </div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Alhambra_in_the_evening.jpg/1024px-Alhambra_in_the_evening.jpg" alt="La Alhambra al capvespre, Granada" /> <!-- Imatge lliure (Wikimedia Commons) -->
       </div>
-
-      <div class="detail">
-        <!-- Descripció detallada del viatge: itinerari, què inclou, ritme, opcions -->
-                <p>
-          Durant aquest viatge de set dies recorrerem alguns dels monuments més emblemàtics d’Andalusia. Començarem a Còrdova amb la Mesquita-Catedral, continuarem cap a Sevilla per conèixer la Giralda i el barri de Santa Cruz, i finalitzarem a Granada amb la impressionant Alhambra i els seus jardins. El viatge inclou transport, allotjament, mitja pensió, assegurança i acompanyament.
-        </p>
-      </div>
-
-      <!-- Botó per descarregar el PROGRAMA en PDF -->
-      <p class="center" style="margin-top:24px">
-        <a href="programa-andalusia.pdf" class="btn btn-primary" download>Descarrega el programa detallat (PDF)</a>
-      </p>
     </section>
-  </main>
 
-  <footer>
-    <div class="container">
-      <p>© <span id="year"></span> BonCamí Viatges · Compartim viatges, creem records</p>
+    <!-- ====== SORTIDES (carrusel que es carrega des de viatges/viatges.json) ====== -->
+    <section id="sortides" class="container">
+      <h2>Pròxims viatges</h2>
+      <div class="carousel" id="carousel"></div>
+      <div class="controls">
+        <button class="btn-carousel" id="prev">← Anteriors</button>
+        <button class="btn-carousel" id="next">Següents →</button>
+      </div>
+      <p id="msg-viatges" style="display:none;color:var(--muted)">No s'han pogut carregar els viatges ara mateix. Torna-ho a provar més tard.</p>
+
+      <!-- FORMULARI DE CONTACTE SIMPLE -->
+      <div class="contact-box" style="margin-top:40px;padding:28px;border:1px solid #ddd;border-radius:var(--radius);max-width:600px;margin-inline:auto;text-align:center;">
+        <h3>Vols rebre informació dels nous viatges?</h3>
+        <form action="#" method="post">
+          <input type="email" name="email" placeholder="El teu correu" required style="padding:12px;border:1px solid #ccc;border-radius:var(--radius);width:100%;max-width:400px;display:block;margin:12px auto;">
+          <label style="display:block;font-size:14px;margin-top:8px;">
+            <input type="checkbox" required> Accepto la política de privacitat
+          </label>
+          <button class="btn btn-primary" type="submit" style="margin-top:14px;">Subscriu-m'hi</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ====== QUI SOM (secció editable de text) ====== -->
+    
+
+    <!-- ====== FAQ / DUBTES (secció editable de text) ====== -->
+    
+
+    <!-- ====== CONTACTE (secció editable de text; substitueix per dades reals) ====== -->
+    
+    <!-- Newsletter -->
+  <section class="registre-newsletter container">
+    <form action="mailto:info@vacances-olivet.cat?subject=ALTA%20MAILING" method="post" enctype="text/plain">
+      <h3>Vols rebre informació de nous viatges?</h3>
+      <input type="email" name="email" placeholder="El teu correu" required style="padding:12px 14px;border:1px solid #ccc;border-radius:8px;width:100%;max-width:350px;display:block;margin-bottom:12px;">
+      <label class="check" style="display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:14px;">
+        <input type="checkbox" required>
+        Accepto la política de protecció de dades i el tractament d’informació.
+      </label>
+      <button type="submit" class="btn btn-primary">Subscriu-m'hi</button>
+    </form>
+  </section>
+</main>
+
+  <!-- ====== BEGIN FOOTER (comú) ====== -->
+<footer>
+  <div class="container footer-grid">
+    <div class="footer-info">
+      <h3>Vacances Olivet</h3>
+      <p><strong>Tel.:</strong> 972 57 35 92</p>
+      <p><strong>Correu:</strong> info@vacances-olivet.cat</p>
+      <p><strong>Horari:</strong> Dl–Dv 10:00–13:30 / 16:30–19:30</p>
     </div>
-  </footer>
+    <div class="footer-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2959.367748859554!2d2.7617044128474744!3d42.12100987109601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bac21c47fc192b%3A0xc5daaa04183b6942!2sOlivet%20Tours!5e0!3m2!1ca!2ses!4v1762884333295!5m2!1ca!2ses" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</footer>
+<!-- ====== END FOOTER ====== -->
 
   <script>
+    // ====== FOOTER: Any actual (no tocar) ======
     document.getElementById('year').textContent=new Date().getFullYear();
+
+    // ====== MENÚ MÒBIL (no tocar) ======
     const toggle=document.querySelector('.nav-toggle');
     const menu=document.getElementById('menu');
     toggle.addEventListener('click',()=>{
@@ -119,6 +226,75 @@
       if(!menu.contains(e.target)&&!toggle.contains(e.target))menu.classList.remove('open');
     });
     window.addEventListener('scroll',()=>menu.classList.remove('open'));
+
+    // ====== CÀRREGA DE VIATGES DES DE viatges/viatges.json ======
+    async function carregarOlivet(){
+      const msg = document.getElementById('msg-viatges');
+      try{
+        const resp = await fetch('viatges/viatges.json?cacheBust=' + Date.now(), { cache: 'no-store' });
+        if(!resp.ok) throw new Error('HTTP ' + resp.status);
+        const viatges = await resp.json();
+        const container = document.getElementById('carousel');
+        container.innerHTML='';
+        const MAX_VIATGES = 12; // Ajusta aquest límit si cal
+        (viatges||[])
+          .filter(v=>v && v.path && !String(v.path).includes('arxivats'))
+          .slice(0, MAX_VIATGES)
+          .forEach(v=>{
+            const card=document.createElement('div');
+            card.className='card';
+            card.innerHTML = `
+              <a href="${v.path}">
+                <img loading="lazy" decoding="async" src="${v.imatge}" alt="${v.titol}">
+              </a>
+              <h3>${v.titol}</h3>
+              <p>${v.dates||''}</p>`;
+            container.appendChild(card);
+          });
+        msg.style.display = (container.children.length===0)?'block':'none';
+        updateArrows();
+      }catch(e){
+        console.error('Error carregant viatges:',e);
+        msg.style.display='block';
+      }
+    }
+    carregarOlivet();
+
+    // ====== CONTROLS DEL CARROSEL (no tocar) ======
+    const carr = document.getElementById('carousel');
+    const btnPrev = document.getElementById('prev');
+    const btnNext = document.getElementById('next');
+
+    function getCardStep(){
+      const card = carr.querySelector('.card');
+      if(!card) return 320; // fallback
+      const style = getComputedStyle(carr);
+      const gap = parseInt(style.columnGap || style.gap || '16', 10);
+      return card.offsetWidth + gap; // ample targeta + gap
+    }
+    function scrollCarousel(direction){
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      const cardsPerStep = isMobile ? 1 : 3; // mòbil: 1 targeta; escriptori: 3 targetes
+      carr.scrollBy({ left: direction * getCardStep() * cardsPerStep, behavior:'smooth' 
+    });
+    }
+    btnPrev.onclick = () => scrollCarousel(-1);
+    btnNext.onclick = () => scrollCarousel(1);
+
+    function updateArrows(){
+      const max = carr.scrollWidth - carr.clientWidth - 1;
+      btnPrev.disabled = carr.scrollLeft <= 0;
+      btnNext.disabled = carr.scrollLeft >= max;
+    }
+    carr.addEventListener('scroll', updateArrows, { passive:true });
+    const ro = new ResizeObserver(updateArrows);
+    ro.observe(carr);
+    updateArrows();
   </script>
+
+  <noscript>
+    <!-- Missatge si l'usuari té el JavaScript desactivat -->
+    Necessites activar JavaScript per veure les sortides carregades automàticament.
+  </noscript>
 </body>
 </html>
