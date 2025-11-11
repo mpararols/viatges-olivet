@@ -136,6 +136,32 @@
       border-color:#f6c5c5; background:#fff6f6; color:#7a2222;
     }
 
+    /* === Modal newsletter === */
+    .nl-modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.35);
+      display:flex; align-items:center; justify-content:center;
+      z-index:9999; animation: nlFade .12s ease-out;
+    }
+    @keyframes nlFade{from{opacity:0}to{opacity:1}}
+    
+    .nl-modal{
+      background:#fff; border-radius:16px; border:1px solid #e5ece8;
+      max-width:520px; width:92vw; padding:22px 22px 18px; box-shadow:0 10px 30px rgba(0,0,0,.18);
+    }
+    .nl-modal h4{margin:0 0 6px; font-size:20px}
+    .nl-modal p{margin:0 0 10px; color:#2a2a2a}
+    .nl-modal .ok{
+      background:#f1faf5; border:1px solid #cfe7dc; color:#114a34; border-radius:12px; padding:12px 14px; margin:10px 0;
+    }
+    .nl-modal .err{
+      background:#fff6f6; border:1px solid #f6c5c5; color:#7a2222; border-radius:12px; padding:12px 14px; margin:10px 0;
+    }
+    .nl-modal .actions{display:flex; justify-content:flex-end; gap:8px; margin-top:8px}
+    .nl-btn{appearance:none; border:0; padding:10px 14px; border-radius:999px; font-weight:700; cursor:pointer}
+    .nl-btn-primary{background:var(--brand); color:#fff}
+    .nl-btn-ghost{background:#edf3f0; color:#114a34}
+    
+
 
     /* ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
     footer{border-top:1px solid #eee;background:#fff}
@@ -330,46 +356,59 @@
   </script>
 
 <script>
+// === Helper: crear i mostrar modal (èxit o error)
+function showNewsletterModal({ok=true}={}){
+  const backdrop = document.createElement('div');
+  backdrop.className = 'nl-modal-backdrop';
+  backdrop.innerHTML = `
+    <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nl-title">
+      <h4 id="nl-title">${ok ? '✓ Alta rebuda correctament' : 'Hi ha hagut un problema'}</h4>
+      <div class="${ok ? 'ok' : 'err'}">
+        <p>
+          ${ok
+            ? "Gràcies! Hem registrat la teva sol·licitud d’alta al mailing."
+            : "No s’ha pogut enviar ara mateix. Torna-ho a provar més tard."}
+        </p>
+      </div>
+      <div class="actions">
+        <button class="nl-btn nl-btn-primary" data-close>Entesos</button>
+      </div>
+    </div>`;
+  document.body.appendChild(backdrop);
+
+  const close = () => { backdrop.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = (e) => { if(e.key === 'Escape') close(); };
+
+  backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) close(); });
+  backdrop.querySelector('[data-close]').addEventListener('click', close);
+  document.addEventListener('keydown', onKey);
+
+  // focus al botó per accessibilitat
+  setTimeout(()=>backdrop.querySelector('[data-close]').focus(), 10);
+}
+
+// === Enviament AJAX a Formspree + modal
 document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const form = e.target;
   if (!form.checkValidity()) return;
 
-  // envia a Formspree
   const data = new FormData(form);
   const resp = await fetch(form.action, {
     method: 'POST',
     body: data,
-    headers: { 'Accept':'application/json' }
+    headers: { 'Accept': 'application/json' }
   });
 
-  // contenidor on mostrarem el feedback (sense tocar l'HTML original)
-  const box = document.querySelector('#newsletter .contact-box');
-  const oldFeedback = box.querySelector('.newsletter-feedback');
-  if (oldFeedback) oldFeedback.remove();
-
-  const feedback = document.createElement('div');
-  feedback.className = 'newsletter-feedback';
-
   if (resp.ok) {
-    form.style.display = 'none';     // amaga el formulari
-    feedback.innerHTML = `
-      <h4>✓ Alta rebuda correctament</h4>
-      <p>Gràcies! Hem registrat la teva sol·licitud d’alta al mailing.</p>
-      <small>Pots tancar aquesta finestra o continuar navegant.</small>
-    `;
-    box.appendChild(feedback);
     form.reset();
+    showNewsletterModal({ok:true});
   } else {
-    feedback.classList.add('newsletter-error');
-    feedback.innerHTML = `
-      <h4>Hi ha hagut un problema</h4>
-      <p>No s’ha pogut enviar ara mateix. Torna-ho a provar més tard.</p>
-    `;
-    box.appendChild(feedback);
+    showNewsletterModal({ok:false});
   }
 });
 </script>
+
 
 
 
