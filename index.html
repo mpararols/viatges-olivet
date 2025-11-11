@@ -158,55 +158,58 @@
         <button class="btn-carousel" id="prev">← Anteriors</button>
         <button class="btn-carousel" id="next">Següents →</button>
       </div>
-      <!-- Missatge de fallback si no hi ha dades o hi ha un error -->
       <p id="msg-viatges" style="display:none;color:var(--muted)">No s'han pogut carregar els viatges ara mateix. Torna-ho a provar més tard.</p>
+
+      <!-- FORMULARI DE CONTACTE SIMPLE -->
+      <div class="contact-box" style="margin-top:40px;padding:28px;border:1px solid #ddd;border-radius:var(--radius);max-width:600px;margin-inline:auto;text-align:center;">
+        <h3>Vols rebre informació dels nous viatges?</h3>
+        <form action="#" method="post">
+          <input type="email" name="email" placeholder="El teu correu" required style="padding:12px;border:1px solid #ccc;border-radius:var(--radius);width:100%;max-width:400px;display:block;margin:12px auto;">
+          <label style="display:block;font-size:14px;margin-top:8px;">
+            <input type="checkbox" required> Accepto la política de privacitat
+          </label>
+          <button class="btn btn-primary" type="submit" style="margin-top:14px;">Subscriu-m'hi</button>
+        </form>
+      </div>
     </section>
 
     <!-- ====== QUI SOM (secció editable de text) ====== -->
-    <section id="quisom" class="container">
-      <h2>Qui som?</h2>
-      <p>
-        Vacances Olivet és una agència especialitzada en propostes per a persones grans. Ens ocupem de tot
-        perquè no t'hagis de preocupar per res: assegurança, allotjament, transport i acompanyament.
-      </p>
-    </section>
+    
 
     <!-- ====== FAQ / DUBTES (secció editable de text) ====== -->
-    <section id="faq" class="container">
-      <h2>Dubtes freqüents</h2>
-      <details>
-        <summary>Com m'inscric a un viatge?</summary>
-        <p>Pots clicar a la targeta del viatge i omplir el formulari que hi trobaràs, o bé contactar-nos directament.</p>
-      </details>
-      <details>
-        <summary>Quin nivell d'assegurança inclou?</summary>
-        <p>Totes les sortides inclouen assegurança bàsica de viatge. Si vols cobertures addicionals, consulta'ns.</p>
-      </details>
-    </section>
+    
 
     <!-- ====== CONTACTE (secció editable de text; substitueix per dades reals) ====== -->
-    <section id="contacte" class="container">
-      <h2>Contacte</h2>
-      <p><strong>Telèfon:</strong> 600 000 000 · <strong>Correu:</strong> info@boncami.cat</p>
-      <p><strong>Horari:</strong> Dl-Dv de 10:00 a 13:30 i de 16:30 a 19:30</p>
-      <!-- Formulari simple (opc.)
-      <form action="https://formspree.io/f/xxxxx" method="POST">
-        <label>Nom <input name="nom" required></label>
-        <label>Correu <input type="email" name="email" required></label>
-        <label>Missatge <textarea name="missatge" rows="4"></textarea></label>
-        <button class="btn btn-primary" type="submit">Envia</button>
-      </form>
-      -->
-    </section>
-  </main>
+    
+    <!-- Newsletter -->
+  <section class="registre-newsletter container">
+    <form action="mailto:info@vacances-olivet.cat?subject=ALTA%20MAILING" method="post" enctype="text/plain">
+      <h3>Vols rebre informació de nous viatges?</h3>
+      <input type="email" name="email" placeholder="El teu correu" required style="padding:12px 14px;border:1px solid #ccc;border-radius:8px;width:100%;max-width:350px;display:block;margin-bottom:12px;">
+      <label class="check" style="display:flex;align-items:center;gap:8px;font-size:14px;margin-bottom:14px;">
+        <input type="checkbox" required>
+        Accepto la política de protecció de dades i el tractament d’informació.
+      </label>
+      <button type="submit" class="btn btn-primary">Subscriu-m'hi</button>
+    </form>
+  </section>
+</main>
 
-  <!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
-  <footer>
-    <div class="container">
-      <p>© <span id="year"></span> Vacances Olivet · Compartim viatges, creem records</p>
+  <!-- ====== BEGIN FOOTER (comú) ====== -->
+<footer>
+  <div class="container footer-grid">
+    <div class="footer-info">
+      <h3>Vacances Olivet</h3>
+      <p><strong>Tel.:</strong> 972 57 35 92</p>
+      <p><strong>Correu:</strong> info@vacances-olivet.cat</p>
+      <p><strong>Horari:</strong> Dl–Dv 10:00–13:30 / 16:30–19:30</p>
     </div>
-  </footer>
-  <!-- ====== END FOOTER ====== -->
+    <div class="footer-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2959.367748859554!2d2.7617044128474744!3d42.12100987109601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bac21c47fc192b%3A0xc5daaa04183b6942!2sOlivet%20Tours!5e0!3m2!1ca!2ses!4v1762884333295!5m2!1ca!2ses" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</footer>
+<!-- ====== END FOOTER ====== -->
 
   <script>
     // ====== FOOTER: Any actual (no tocar) ======
