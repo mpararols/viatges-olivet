@@ -3,8 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BonCamí Viatges · Compartim viatges, creem records</title>
-  <meta name="description" content="Viatges tranquils i segurs per a persones grans. Sortides properes, assegurança, atenció personalitzada i grups reduïts." />
+  <title>Vacances Olivet · Compartim viatges, creem records</title>
+  <meta name="description" content="Olivet tranquils i segurs per a persones grans. Sortides properes, assegurança, atenció personalitzada i grups reduïts." />
+
+  <!--
+    🔧 GUIA RÀPIDA D'EDICIÓ
+    ──────────────────────
+    1) La CAPÇALERA i el PEU (FOOTER) s'han de COPIAR-ENGANXAR IDÈNTICS a totes les pàgines.
+       -> Cerca els blocs marcats com: BEGIN HEADER / END HEADER i BEGIN FOOTER / END FOOTER.
+    2) El contingut de portada és a <main> i està dividit en seccions clarament comentades:
+       - HERO (imatge + eslògan)
+       - SORTIDES (carrusel que es carrega des de viatges/viatges.json)
+       - QUI SOM, FAQ i CONTACTE (seccions simples de text que poden ampliar-se)
+    3) Per afegir noves targetes de viatge, edita el fitxer: viatges/viatges.json
+       Cada viatge ha de tenir: { "titol", "dates", "imatge", "path" }
+    4) Per crear una pàgina interior (detall d'un viatge), crea un nou .html i COPIA la mateixa capçalera i peu.
+  -->
+
   <style>
     :root{
       --bg:#fffefc; --text:#1d1d1b; --muted:#585858;
@@ -20,6 +35,8 @@
     .btn-primary{background:var(--brand);color:#fff}
     .btn-primary:hover{filter:brightness(0.95)}
     .btn-ghost{background:transparent;color:var(--brand);border-color:var(--brand)}
+
+    /* ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
     header{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #eee;z-index:10}
     nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     nav a{font-weight:700;text-decoration:none;color:var(--text)}
@@ -34,11 +51,16 @@
       nav .menu.open{display:flex}
       nav .menu a{display:block}
     }
+    /* ====== END HEADER ====== */
+
+    /* ====== HERO (portada) ====== */
     .hero{background:linear-gradient(180deg,var(--brand-2),#fff)}
     .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
     .hero h1{font-size:clamp(32px,4vw,48px);line-height:1.2;margin:0 0 10px}
     .hero p{font-size:20px;color:var(--muted)}
     .eslogan{font-size:22px;font-style:italic;color:var(--brand);margin-bottom:20px}
+
+    /* ====== TARGETES I GRIDS ====== */
     .grid{display:grid;gap:18px}
     .grid-3{grid-template-columns:repeat(3,1fr)}
     .card{
@@ -47,39 +69,42 @@
       flex:0 0 300px;scroll-snap-align:start;
     }
     .card img{width:100%;height:200px;object-fit:cover;border-radius:var(--radius)}
+
     @media(max-width:900px){
       .hero-grid{grid-template-columns:1fr}
       .grid-3{grid-template-columns:1fr}
       .card{flex:0 0 85vw} /* targeta ampla i còmoda en mòbil */
     }
 
-    /* Carrosel de viatges: scroll-snap i responsive */
-    .carousel{
-      display:flex;overflow-x:auto;scroll-behavior:smooth;gap:16px;padding:16px 0;
-      scroll-snap-type:x mandatory;
-    }
+    /* ====== CARROSEL DE SORTIDES ====== */
+    .carousel{display:flex;overflow-x:auto;scroll-behavior:smooth;gap:16px;padding:16px 0;scroll-snap-type:x mandatory}
     .controls{text-align:center;margin:10px 0}
-    .btn-carousel{
-      display:inline-block;padding:10px 16px;border-radius:999px;font-weight:700;
-      border:2px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;margin:0 4px
-    }
-    .btn-carousel:disabled{
-      opacity:0.5;cursor:not-allowed;filter:grayscale(0.2);
-    }
+    .btn-carousel{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:700;border:2px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;margin:0 4px}
+    .btn-carousel:disabled{opacity:0.5;cursor:not-allowed;filter:grayscale(0.2)}
     .ph{background:linear-gradient(135deg,#d7efe5,#fff);border-radius:var(--radius);aspect-ratio:16/9;display:grid;place-items:center;color:#2f6d59;font-weight:700}
+
+    /* ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
+    footer{border-top:1px solid #eee;background:#fff}
+    /* ====== END FOOTER ====== */
   </style>
 </head>
 <body>
+  <!-- ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
   <header>
     <div class="container">
       <nav>
-        <a href="#inici" aria-label="Inici: BonCamí Viatges">
+        <!-- LOGOTIP / ENLLAÇ A INICI -->
+        <a href="#inici" aria-label="Inici: Vacances Olivet">
           <svg width="160" height="36" viewBox="0 0 320 72" aria-hidden="true">
-            <text x="0" y="28" font-size="28" font-weight="800" fill="var(--brand)">BonCamí</text>
-            <text x="142" y="28" font-size="24" fill="var(--accent)">Viatges</text>
+            <text x="0" y="28" font-size="28" font-weight="800" fill="var(--brand)">Vacances</text>
+            <text x="142" y="28" font-size="24" fill="var(--accent)">Olivet</text>
           </svg>
         </a>
+
+        <!-- BOTÓ MENÚ (MÒBIL) -->
         <button class="nav-toggle" aria-controls="menu" aria-expanded="false">☰ Menú</button>
+
+        <!-- MENÚ PRINCIPAL: mantén els mateixos enllaços i ordre a totes les pàgines -->
         <div class="menu" id="menu">
           <a href="#sortides">Sortides</a>
           <a href="#quisom">Qui som?</a>
@@ -89,19 +114,26 @@
       </nav>
     </div>
   </header>
+  <!-- ====== END HEADER ====== -->
 
   <main id="inici">
+    <!-- ====== HERO (portada: títol, eslògan i imatge) ====== -->
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eslogan">“Compartim viatges,<br>Creem records”</div>
-          <p>Som especialistes en viatges per a persones grans. Organitzem experiències segures, còmodes i plenes de bons moments.</p>
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <h1>Compartim moments, fem camí</h1>
+            <p class="eslogan">Viatges tranquils i segurs pensats per a tu.</p>
+          </div>
+          <div>
+            <p>Vacances Olivet és una agència especialitzada en viatges per a persones grans. Ens encarreguem de tot el que necessites per viatjar amb tranquil·litat: allotjament, transports, assegurances i acompanyament.</p>
+          </div>
         </div>
-        <div class="ph">Imatge principal</div>
+        <div class="ph" style="margin-top:24px; width:100%;">Imatge principal</div>
       </div>
     </section>
 
-    <!-- Secció de sortides amb càrrega automàtica -->
+    <!-- ====== SORTIDES (carrusel que es carrega des de viatges/viatges.json) ====== -->
     <section id="sortides" class="container">
       <h2>Pròxims viatges</h2>
       <div class="carousel" id="carousel"></div>
@@ -109,20 +141,61 @@
         <button class="btn-carousel" id="prev">← Anteriors</button>
         <button class="btn-carousel" id="next">Següents →</button>
       </div>
+      <!-- Missatge de fallback si no hi ha dades o hi ha un error -->
+      <p id="msg-viatges" style="display:none;color:var(--muted)">No s'han pogut carregar els viatges ara mateix. Torna-ho a provar més tard.</p>
+    </section>
+
+    <!-- ====== QUI SOM (secció editable de text) ====== -->
+    <section id="quisom" class="container">
+      <h2>Qui som?</h2>
+      <p>
+        Vacances Olivet és una agència especialitzada en propostes per a persones grans. Ens ocupem de tot
+        perquè no t'hagis de preocupar per res: assegurança, allotjament, transport i acompanyament.
+      </p>
+    </section>
+
+    <!-- ====== FAQ / DUBTES (secció editable de text) ====== -->
+    <section id="faq" class="container">
+      <h2>Dubtes freqüents</h2>
+      <details>
+        <summary>Com m'inscric a un viatge?</summary>
+        <p>Pots clicar a la targeta del viatge i omplir el formulari que hi trobaràs, o bé contactar-nos directament.</p>
+      </details>
+      <details>
+        <summary>Quin nivell d'assegurança inclou?</summary>
+        <p>Totes les sortides inclouen assegurança bàsica de viatge. Si vols cobertures addicionals, consulta'ns.</p>
+      </details>
+    </section>
+
+    <!-- ====== CONTACTE (secció editable de text; substitueix per dades reals) ====== -->
+    <section id="contacte" class="container">
+      <h2>Contacte</h2>
+      <p><strong>Telèfon:</strong> 600 000 000 · <strong>Correu:</strong> info@boncami.cat</p>
+      <p><strong>Horari:</strong> Dl-Dv de 10:00 a 13:30 i de 16:30 a 19:30</p>
+      <!-- Formulari simple (opc.)
+      <form action="https://formspree.io/f/xxxxx" method="POST">
+        <label>Nom <input name="nom" required></label>
+        <label>Correu <input type="email" name="email" required></label>
+        <label>Missatge <textarea name="missatge" rows="4"></textarea></label>
+        <button class="btn btn-primary" type="submit">Envia</button>
+      </form>
+      -->
     </section>
   </main>
 
+  <!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
   <footer>
     <div class="container">
-      <p>© <span id="year"></span> BonCamí Viatges · Compartim viatges, creem records</p>
+      <p>© <span id="year"></span> Vacances Olivet · Compartim viatges, creem records</p>
     </div>
   </footer>
+  <!-- ====== END FOOTER ====== -->
 
   <script>
-    // Any del footer
+    // ====== FOOTER: Any actual (no tocar) ======
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    // Menú mòbil: obrir/tancar i plegar en fer scroll o clic fora
+    // ====== MENÚ MÒBIL (no tocar) ======
     const toggle=document.querySelector('.nav-toggle');
     const menu=document.getElementById('menu');
     toggle.addEventListener('click',()=>{
@@ -134,16 +207,18 @@
     });
     window.addEventListener('scroll',()=>menu.classList.remove('open'));
 
-    // Carrega la llista de viatges des de viatges/viatges.json (ignora carpeta arxivats)
-    async function carregarViatges(){
+    // ====== CÀRREGA DE VIATGES DES DE viatges/viatges.json ======
+    async function carregarOlivet(){
+      const msg = document.getElementById('msg-viatges');
       try{
         const resp = await fetch('viatges/viatges.json?cacheBust=' + Date.now(), { cache: 'no-store' });
+        if(!resp.ok) throw new Error('HTTP ' + resp.status);
         const viatges = await resp.json();
         const container = document.getElementById('carousel');
         container.innerHTML='';
-        const MAX_VIATGES = 12; // límit de rendiment; ajustable
-        viatges
-          .filter(v=>!v.path.includes('arxivats'))
+        const MAX_VIATGES = 12; // Ajusta aquest límit si cal
+        (viatges||[])
+          .filter(v=>v && v.path && !String(v.path).includes('arxivats'))
           .slice(0, MAX_VIATGES)
           .forEach(v=>{
             const card=document.createElement('div');
@@ -153,17 +228,19 @@
                 <img loading="lazy" decoding="async" src="${v.imatge}" alt="${v.titol}">
               </a>
               <h3>${v.titol}</h3>
-              <p>${v.dates}</p>`;
+              <p>${v.dates||''}</p>`;
             container.appendChild(card);
           });
-        // Actualitza l’estat de les fletxes després d’omplir
+        msg.style.display = (container.children.length===0)?'block':'none';
         updateArrows();
-      }catch(e){console.error('Error carregant viatges:',e);}
+      }catch(e){
+        console.error('Error carregant viatges:',e);
+        msg.style.display='block';
+      }
     }
+    carregarOlivet();
 
-    carregarViatges();
-
-    // Controls del carrusel (desplaça 3 targetes i s'adapta al resize)
+    // ====== CONTROLS DEL CARROSEL (no tocar) ======
     const carr = document.getElementById('carousel');
     const btnPrev = document.getElementById('prev');
     const btnNext = document.getElementById('next');
@@ -181,7 +258,6 @@
     btnPrev.onclick = () => scrollCarousel(-1);
     btnNext.onclick = () => scrollCarousel(1);
 
-    // Desactiva/activa fletxes a l'inici/final i en resize
     function updateArrows(){
       const max = carr.scrollWidth - carr.clientWidth - 1;
       btnPrev.disabled = carr.scrollLeft <= 0;
@@ -192,5 +268,10 @@
     ro.observe(carr);
     updateArrows();
   </script>
+
+  <noscript>
+    <!-- Missatge si l'usuari té el JavaScript desactivat -->
+    Necessites activar JavaScript per veure les sortides carregades automàticament.
+  </noscript>
 </body>
 </html>
