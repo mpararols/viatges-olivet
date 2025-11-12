@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qui som · Vacances Olivet</title>
+  <meta name="description" content="Coneix l’equip i la història de Vacances Olivet." />
+  <!-- Estils comuns -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts (mateixes que la portada) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
+  <header>
+    <div class="container">
+      <nav>
+        <!-- LOGOTIP / ENLLAÇ A INICI -->
+        <a href="index.html#inici" aria-label="Inici: Vacances Olivet">
+          <svg width="200" height="40" viewBox="0 0 360 72" aria-hidden="true">
+            <text x="0" y="30" font-size="28" font-weight="800" fill="var(--brand)">Vacances</text>
+            <text x="160" y="30" font-size="24" fill="var(--accent)">Olivet</text>
+          </svg>
+        </a>
+
+        <!-- BOTÓ MENÚ (MÒBIL) -->
+        <button class="nav-toggle" aria-controls="menu" aria-expanded="false">☰ Menú</button>
+
+        <!-- MENÚ PRINCIPAL (mateix ordre i id) -->
+        <div class="menu" id="menu">
+          <a href="index.html#sortides">Sortides</a>
+          <a href="quisom.html">Qui som?</a>
+          <a href="index.html#faq">Dubtes</a>
+          <a href="index.html#contacte">Contacte</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- ====== END HEADER ====== -->
+
+  <main id="contingut">
+    <!-- ====== HERO SUBPÀGINA (opcional suau) ====== -->
+    <section class="subhero">
+      <div class="container">
+        <h1 class="page-title">Qui som</h1>
+        <p class="page-lead">Tracte proper, experiència i la voluntat de fer de cada viatge una experiència única.</p>
+      </div>
+    </section>
+
+    <!-- ====== COS: grid 2/3 (text) + 1/3 (imatge) ====== -->
+    <section class="container">
+      <div class="about-grid">
+        <!-- 📝 TEXT (edita lliurement) -->
+        <article class="about-text">
+          <p><strong>Vacances Olivet</strong> neix amb l’experiència d’un llegat familiar i la mirada fresca d’una nova generació. Durant més de 40 anys, la meva família va fer del món dels viatges una manera d'entendre la vida i la professió. Ara, amb la mateixa passió i un esperit renovat, engeguem aquest nou projecte.</p>
+
+          <p>Amb Vacances Olivet, l’ADN familiar continua viu: <strong>tracte proper</strong>, <strong>atenció a cada detall</strong> i la voluntat de fer de cada viatge una <strong>experiència única</strong>. Ens mouen les persones, els records compartits i la tranquil·litat de viatjar sabent que tot està pensat perquè només t’hagis de preocupar de gaudir.</p>
+
+          <!-- (Opcional) punts de valor; es poden esborrar si no calen -->
+          <ul class="about-points">
+            <li>Viatges en grup amb rutes cuidades i ritme amable.</li>
+            <li>Assistència propera abans i durant el viatge.</li>
+            <li>Selecció de visites per descobrir, aprendre i viure el destí.</li>
+          </ul>
+        </article>
+
+        <!-- 🖼️ IMATGE (canvia la ruta a la teva foto antiga de l’empresa) -->
+        <aside class="about-photo">
+          <!-- 🔁 Substitueix src per la teva imatge (p. ex. imatges/antiga-empresa.jpg) -->
+          <img src="/imatges/autocarOlivet.jpg"
+               alt="Fotografia històrica de l’antiga empresa familiar"
+               loading="lazy" decoding="async">
+          <figcaption>Els nostres orígens: una història familiar de més de 40 anys.</figcaption>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
+  <footer>
+    <div class="container footer-grid">
+      <!-- Columna esquerra: dades empresa -->
+      <div class="footer-info">
+        <h3>Vacances Olivet S.L.</h3>
+        <p>C/ Canat 115<br>17820 Banyoles</p>
+        <p><strong>Tel.:</strong> 972 57 05 93<br>
+           <strong>Mail:</strong> <a href="mailto:info@vacances-olivet.cat">info@vacances-olivet.cat</a></p>
+        <p><strong>Horari:</strong><br>
+           De dilluns a divendres, de 9.00 a 13.00 h<br>
+           Tardes, a hores convingudes
+        </p>
+      </div>
+
+      <!-- Columna dreta: mapa -->
+      <div class="footer-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1025.3659504649509!2d2.7640275872920164!3d42.120599791129884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bac21c47fc192b%3A0xc5daaa04183b6942!2sOlivet%20Tours!5e0!3m2!1sca!2ses!4v1762950219617!5m2!1sca!2ses"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © <span id="year"></span> Vacances Olivet · Compartim viatges, creem records ·
+        <a href="privacitat.html">Política de privacitat</a>
+      </p>
+    </div>
+  </footer>
+  <!-- ====== END FOOTER ====== -->
+
+  <!-- Scripts comuns -->
+  <script src="script.js"></script>
+</body>
+</html>
