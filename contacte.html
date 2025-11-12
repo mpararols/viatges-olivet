@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contacte · Vacances Olivet</title>
+  <!-- Defineix l'arrel de tots els enllaços relatius -->
+  <base href="/viatges-olivet/">
+  <meta name="description" content="Contacta amb Vacances Olivet: consultes, propostes i informació sobre sortides." />
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts (mateixes del lloc) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
+    <header>
+    <div class="container">
+        <nav>
+        <!-- LOGOTIP / ENLLAÇ A INICI -->
+        <a href="index.html#inici" aria-label="Inici: Vacances Olivet">
+            <svg width="200" height="40" viewBox="0 0 360 72" aria-hidden="true">
+            <text x="0" y="30" font-size="28" font-weight="800" fill="var(--brand)">Vacances</text>
+            <text x="160" y="30" font-size="24" fill="var(--accent)">Olivet</text>
+            </svg>
+        </a>
+
+        <!-- BOTÓ MENÚ (MÒBIL) -->
+        <button class="nav-toggle" aria-controls="menu" aria-expanded="false">☰ Menú</button>
+
+        <!-- MENÚ PRINCIPAL (mateix id i ordre a totes les pàgines) -->
+        <div class="menu" id="menu">
+            <a href="index.html#sortides">Sortides</a>
+            <a href="quisom.html">Qui som?</a>
+            <a href="faq.html">Dubtes</a>
+            <a href="contacte.html">Contacte</a>
+        </div>
+        </nav>
+    </div>
+    </header>
+    <!-- ====== END HEADER ====== -->
+
+
+  <main id="contingut">
+    <!-- Franja suau de títol -->
+    <section class="subhero">
+      <div class="container">
+        <h1 class="page-title">Contacte</h1>
+        <p class="page-lead">Explica’ns què necessites i et respondrem al més aviat possible.</p>
+      </div>
+    </section>
+
+    <!-- Cos: 2/3 formulari + 1/3 informació i mapa -->
+    <section class="container">
+      <div class="contact-grid">
+        <!-- 📨 FORMULARI (edita camps segons convingui) -->
+        <form id="contact-form" class="contact-card" action="https://formspree.io/f/xdkyoypq" method="POST">
+          <!-- 🔖 Canvia si més endavant uses un endpoint específic de Formspree -->
+          <input type="hidden" name="_subject" value="CONTACTE WEB · Vacances Olivet">
+
+          <div class="field">
+            <label for="nom">Nom i cognoms</label>
+            <input type="text" id="nom" name="nom" required>
+          </div>
+
+          <div class="field-two">
+            <div class="field">
+              <label for="email">Correu electrònic</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="field">
+              <label for="telefon">Telèfon (opcional)</label>
+              <input type="tel" id="telefon" name="telefon" inputmode="tel">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="assumpte">Motiu</label>
+            <select id="assumpte" name="assumpte" required>
+              <option value="" selected disabled>Selecciona una opció…</option>
+              <option>Informació sobre una sortida</option>
+              <option>Proposta de viatge</option>
+              <option>Dubte o incidència</option>
+              <option>Altres</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="missatge">Missatge</label>
+            <textarea id="missatge" name="missatge" rows="6" required></textarea>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" name="consent" value="yes" required>
+            Accepto la <a href="privacitat.html" target="_blank" rel="noopener">política de protecció de dades</a>.
+          </label>
+
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+
+        <!-- ℹ️ DADES + MAPA -->
+        <aside class="contact-side">
+          <div class="contact-info">
+            <h3>Vacances Olivet S.L.</h3>
+            <p>C/ Canat 115<br>17820 Banyoles</p>
+            <p><strong>Tel.:</strong> 972 57 05 93<br>
+               <strong>Mail:</strong> <a href="mailto:info@vacances-olivet.cat">info@vacances-olivet.cat</a></p>
+            <p><strong>Horari:</strong><br>
+               De dilluns a divendres, de 9.00 a 13.00 h<br>
+               Tardes, a hores convingudes
+            </p>
+          </div>
+
+          <div class="contact-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1025.3659504649509!2d2.7640275872920164!3d42.120599791129884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bac21c47fc192b%3A0xc5daaa04183b6942!2sOlivet%20Tours!5e0!3m2!1sca!2ses!4v1762950219617!5m2!1sca!2ses"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
+  <footer>
+
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Vacances Olivet · Compartim viatges, creem records ·
+        <a href="privacitat.html">Política de privacitat</a></p>
+    </div>
+  </footer>
+  <!-- ====== END FOOTER ====== -->
+
+  <script src="script.js"></script>
+</body>
+</html>

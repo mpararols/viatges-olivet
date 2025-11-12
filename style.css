@@ -318,3 +318,43 @@ footer{
     grid-template-columns: 1fr; /* una columna en mòbil */
   }
 }
+
+/* ====== Contacte: grid i targeta ====== */
+.contact-grid{
+  display:grid; grid-template-columns: 2fr 1fr; gap:28px; align-items:start;
+  margin: 18px 0 8px;
+}
+.contact-card{
+  background:#fff; border:1px solid #eee; border-radius:var(--radius);
+  padding:18px;
+}
+.contact-side .contact-info h3{ margin-top:0; color:var(--brand); }
+.contact-map iframe{
+  width:100%; height:260px; border:0; border-radius:var(--radius);
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+
+/* Camps del formulari */
+.contact-card .field{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+.contact-card .field-two{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.contact-card label{ font-weight:600; }
+.contact-card input[type="text"],
+.contact-card input[type="email"],
+.contact-card input[type="tel"],
+.contact-card select,
+.contact-card textarea{
+  padding:12px 14px; border:1px solid #ccc; border-radius:var(--radius); font-size:16px;
+}
+.contact-card textarea{ resize:vertical; }
+
+/* Checkbox consent coherent amb newsletter */
+.contact-card .check{
+  display:inline-flex; align-items:center; gap:8px; font-size:14px; margin:4px 0 10px;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .contact-grid{ grid-template-columns:1fr; }
+  .contact-card .field-two{ grid-template-columns:1fr; }
+  .contact-map iframe{ height:220px; }
+}

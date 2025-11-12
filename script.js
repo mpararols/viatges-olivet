@@ -119,3 +119,21 @@ document.getElementById('newsletter-form')?.addEventListener('submit', async (e)
   form.reset();
   showNewsletterModal({ok: resp.ok});
 });
+
+
+// ====== FORMULARI CONTACTE: AJAX + modal (reutilitza showNewsletterModal) ======
+document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  if (!form.checkValidity()) return;
+
+  const data = new FormData(form);
+  const resp = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+
+  form.reset();
+  showNewsletterModal({ ok: resp.ok });
+});
