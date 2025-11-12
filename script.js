@@ -121,19 +121,43 @@ document.getElementById('newsletter-form')?.addEventListener('submit', async (e)
 });
 
 
-// ====== FORMULARI CONTACTE: AJAX + modal (reutilitza showNewsletterModal) ======
-document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  if (!form.checkValidity()) return;
+// ===== FORMULARI CONTACTE: AJAX + modal =====
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
 
-  const data = new FormData(form);
-  const resp = await fetch(form.action, {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    try {
+      const resp = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' } // <- evita redirecció de Formspree
+      });
+
+      if (resp.ok) {
+        form.reset();
+        showNewsletterModal({
+          ok: true,
+          title: 'Missatge enviat!',
+          message: 'Gràcies! Hem rebut la teva consulta i et respondrem ben aviat.'
+        });
+      } else {
+        showNewsletterModal({
+          ok: false,
+          title: 'No s’ha pogut enviar',
+          message: 'Torna-ho a provar més tard o escriu-nos a info@vacances-olivet.cat.'
+        });
+      }
+    } catch {
+      showNewsletterModal({
+        ok: false,
+        title: 'Error de connexió',
+        message: 'Revisa internet i torna-ho a provar.'
+      });
+    }
   });
-
-  form.reset();
-  showNewsletterModal({ ok: resp.ok });
 });
+
