@@ -1,0 +1,215 @@
+:root{
+  --bg:#fffefc; --text:#1d1d1b; --muted:#585858;
+  --brand:#0a6b4a; --brand-2:#f0f8f5; --accent:#e27e2b;
+  --radius:16px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;margin:0;background:var(--bg);color:var(--text);line-height:1.6;font-size:18px}
+img{max-width:100%;height:auto;border-radius:var(--radius)}
+a{color:var(--brand);text-underline-offset:3px}
+.container{max-width:1050px;margin-inline:auto;padding:24px}
+.btn{display:inline-block;font-weight:700;padding:14px 22px;border-radius:999px;border:2px solid transparent;text-decoration:none;font-size:18px}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{filter:brightness(0.95)}
+.btn-ghost{background:transparent;color:var(--brand);border-color:var(--brand)}
+
+/* ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
+header{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #eee;z-index:10}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+nav a{font-weight:700;text-decoration:none;color:var(--text)}
+nav .menu{display:flex;gap:14px;flex-wrap:wrap}
+nav .menu a{padding:10px 14px;border-radius:999px}
+nav .menu a:hover{background:var(--brand-2)}
+.nav-toggle{display:none;border:1px solid #d9e7e1;background:#fff;padding:10px 14px;border-radius:999px;font-weight:700}
+@media(max-width:900px){
+  nav{flex-wrap:wrap}
+  .nav-toggle{display:block}
+  nav .menu{display:none;width:100%;flex-direction:column;gap:8px;margin-top:10px}
+  nav .menu.open{display:flex}
+  nav .menu a{display:block}
+}
+/* ====== END HEADER ====== */
+
+/* ====== HERO (portada) ====== */
+.hero{background:linear-gradient(180deg,var(--brand-2),#fff)}
+.hero-grid{display:grid;grid-template-columns:1fr 2fr;gap:32px;align-items:center}
+.hero h1{font-family:'Merriweather', Georgia, 'Times New Roman', serif;font-size:clamp(22px,2.8vw,32px);line-height:1.25;margin:0 0 6px;font-weight:800;letter-spacing:-0.01em}
+.hero p{font-size:18px;color:var(--muted);margin:0}
+.eslogan{font-size:clamp(18px,2.2vw,22px);font-weight:700;color:var(--text);margin:0}
+.hero-image{grid-column:1 / -1;border-radius:var(--radius);overflow:hidden}
+.hero-image img{width:100%;height:auto;display:block;border-radius:var(--radius);object-fit:cover}
+
+/* ====== TARGETES I GRIDS ====== */
+.grid{display:grid;gap:18px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.card{
+  background:#fff;border:1px solid #eee;border-radius:var(--radius);padding:18px;
+  /* carrusel: amplada fixa i snap */
+  flex:0 0 300px;scroll-snap-align:start;
+}
+.card img{width:100%;height:200px;object-fit:cover;border-radius:var(--radius)}
+
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr}
+  .card{flex:0 0 85vw} /* targeta ampla i còmoda en mòbil */
+}
+
+/* Separació extra entre el contingut i el footer */
+main{ padding-bottom: 36px; }
+@media (min-width:900px){
+  main{ padding-bottom: 56px; }
+}
+
+
+/* ====== CARROSEL DE SORTIDES ====== */
+.carousel{display:flex;overflow-x:auto;scroll-behavior:smooth;gap:16px;padding:16px 0;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none}
+.carousel::-webkit-scrollbar{display:none}
+.controls{text-align:center;margin:10px 0}
+.btn-carousel{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:700;border:2px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;margin:0 4px}
+.btn-carousel:disabled{opacity:0.5;cursor:not-allowed;filter:grayscale(0.2)}
+.ph{background:linear-gradient(135deg,#d7efe5,#fff);border-radius:var(--radius);aspect-ratio:16/9;display:grid;place-items:center;color:#2f6d59;font-weight:700}
+
+/* ====== NEWSLETTER ======= */
+#newsletter-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Tot centrat */
+  gap: 14px; /* Separació agradable entre elements */
+  text-align: center;
+}
+
+#newsletter-form input[type="email"] {
+  width: 100%;
+  max-width: 280px; /* 🔹 Reduïm amplada per equilibrar amb el títol */
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-size: 16px;
+}
+
+/* Checkbox i text en la mateixa línia centrada */
+#newsletter-form .check {
+  display: inline-flex;       /* 🔹 Inline-flex per estar en una sola línia */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 14px;
+  flex-wrap: wrap;            /* permet que el text faci salt si cal en pantalles petites */
+  max-width: 480px;
+  line-height: 1.4;
+}
+
+#newsletter-form .check a {
+  color: var(--brand);
+  text-decoration: underline;
+}
+
+#newsletter-form .check a:hover {
+  color: var(--accent);
+}
+
+#newsletter-form button {
+  margin-top: 6px;
+}
+
+
+/* Feedback newsletter (èxit/error) */
+.newsletter-feedback{
+  margin-top:16px;
+  padding:18px;
+  border-radius:12px;
+  border:1px solid #cfe7dc;
+  background:#f1faf5;
+  color:#114a34;
+  text-align:center;
+}
+.newsletter-feedback h4{
+  margin:0 0 6px; font-size:18px;
+}
+.newsletter-feedback small{
+  color:#2f6d59;
+}
+.newsletter-error{
+  border-color:#f6c5c5; background:#fff6f6; color:#7a2222;
+}
+
+/* === Modal newsletter === */
+.nl-modal-backdrop{
+  position:fixed; inset:0; background:rgba(0,0,0,.35);
+  display:flex; align-items:center; justify-content:center;
+  z-index:9999; animation: nlFade .12s ease-out;
+}
+@keyframes nlFade{from{opacity:0}to{opacity:1}}
+.nl-modal{
+  background:#fff; border-radius:16px; border:1px solid #e5ece8;
+  max-width:520px; width:92vw; padding:22px 22px 18px; box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+.nl-modal h4{margin:0 0 6px; font-size:20px}
+.nl-modal p{margin:0 0 10px; color:#2a2a2a}
+.nl-modal .ok{
+  background:#f1faf5; border:1px solid #cfe7dc; color:#114a34; border-radius:12px; padding:12px 14px; margin:10px 0;
+}
+.nl-modal .err{
+  background:#fff6f6; border:1px solid #f6c5c5; color:#7a2222; border-radius:12px; padding:12px 14px; margin:10px 0;
+}
+.nl-modal .actions{display:flex; justify-content:flex-end; gap:8px; margin-top:8px}
+.nl-btn{appearance:none; border:0; padding:10px 14px; border-radius:999px; font-weight:700; cursor:pointer}
+.nl-btn-primary{background:var(--brand); color:#fff}
+.nl-btn-ghost{background:#edf3f0; color:#114a34}
+
+/* ====== FOOTER ====== */
+footer {
+  border-top: 1px solid #eee;
+  background: #fff;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+  padding-block: 24px;
+}
+
+.footer-info h3 {
+  margin-top: 0;
+  color: var(--brand);
+}
+
+.footer-info a {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.footer-info a:hover {
+  text-decoration: underline;
+}
+
+.footer-map iframe {
+  width: 100%;
+  height: 260px;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+.footer-bottom {
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  padding: 14px 0;
+}
+
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .footer-map iframe {
+    height: 220px;
+  }
+}
+

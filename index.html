@@ -14,159 +14,15 @@
     2) El contingut de portada és a <main> i està dividit en seccions clarament comentades:
        - HERO (imatge + eslògan)
        - SORTIDES (carrusel que es carrega des de viatges/viatges.json)
-       - QUI SOM, FAQ i CONTACTE (seccions simples de text que poden ampliar-se)
+       - NEWSLETTER (formulari d'alta mailing amb consentiment)
     3) Per afegir noves targetes de viatge, edita el fitxer: viatges/viatges.json
        Cada viatge ha de tenir: { "titol", "dates", "imatge", "path" }
     4) Per crear una pàgina interior (detall d'un viatge), crea un nou .html i COPIA la mateixa capçalera i peu.
   -->
 
-  <style>
-    :root{
-      --bg:#fffefc; --text:#1d1d1b; --muted:#585858;
-      --brand:#0a6b4a; --brand-2:#f0f8f5; --accent:#e27e2b;
-      --radius:16px;
-    }
-    html{scroll-behavior:smooth;}
-    body{font-family:'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;margin:0;background:var(--bg);color:var(--text);line-height:1.6;font-size:18px}
-    img{max-width:100%;height:auto;border-radius:var(--radius)}
-    a{color:var(--brand);text-underline-offset:3px}
-    .container{max-width:1050px;margin-inline:auto;padding:24px}
-    .btn{display:inline-block;font-weight:700;padding:14px 22px;border-radius:999px;border:2px solid transparent;text-decoration:none;font-size:18px}
-    .btn-primary{background:var(--brand);color:#fff}
-    .btn-primary:hover{filter:brightness(0.95)}
-    .btn-ghost{background:transparent;color:var(--brand);border-color:var(--brand)}
+  <!-- Estils principals del lloc -->
+  <link rel="stylesheet" href="style.css">
 
-    /* ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
-    header{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #eee;z-index:10}
-    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    nav a{font-weight:700;text-decoration:none;color:var(--text)}
-    nav .menu{display:flex;gap:14px;flex-wrap:wrap}
-    nav .menu a{padding:10px 14px;border-radius:999px}
-    nav .menu a:hover{background:var(--brand-2)}
-    .nav-toggle{display:none;border:1px solid #d9e7e1;background:#fff;padding:10px 14px;border-radius:999px;font-weight:700}
-    @media(max-width:900px){
-      nav{flex-wrap:wrap}
-      .nav-toggle{display:block}
-      nav .menu{display:none;width:100%;flex-direction:column;gap:8px;margin-top:10px}
-      nav .menu.open{display:flex}
-      nav .menu a{display:block}
-    }
-    /* ====== END HEADER ====== */
-
-    /* ====== HERO (portada) ====== */
-    .hero{background:linear-gradient(180deg,var(--brand-2),#fff)}
-    .hero-grid{display:grid;grid-template-columns:1fr 2fr;gap:32px;align-items:center}
-    .hero h1{font-family:'Merriweather', Georgia, 'Times New Roman', serif;font-size:clamp(22px,2.8vw,32px);line-height:1.25;margin:0 0 6px;font-weight:800;letter-spacing:-0.01em}
-    .hero p{font-size:18px;color:var(--muted);margin:0}
-    .eslogan{font-size:clamp(18px,2.2vw,22px);font-weight:700;color:var(--text);margin:0}
-    .hero-image{grid-column:1 / -1;border-radius:var(--radius);overflow:hidden}
-    .hero-image img{width:100%;height:auto;display:block;border-radius:var(--radius);object-fit:cover}
-
-    /* ====== TARGETES I GRIDS ====== */
-    .grid{display:grid;gap:18px}
-    .grid-3{grid-template-columns:repeat(3,1fr)}
-    .card{
-      background:#fff;border:1px solid #eee;border-radius:var(--radius);padding:18px;
-      /* carrusel: amplada fixa i snap */
-      flex:0 0 300px;scroll-snap-align:start;
-    }
-    .card img{width:100%;height:200px;object-fit:cover;border-radius:var(--radius)}
-
-    @media(max-width:900px){
-      .hero-grid{grid-template-columns:1fr}
-      .grid-3{grid-template-columns:1fr}
-      .card{flex:0 0 85vw} /* targeta ampla i còmoda en mòbil */
-    }
-
-    /* ====== CARROSEL DE SORTIDES ====== */
-    .carousel{display:flex;overflow-x:auto;scroll-behavior:smooth;gap:16px;padding:16px 0;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none}
-    .carousel::-webkit-scrollbar{display:none}
-    .controls{text-align:center;margin:10px 0}
-    .btn-carousel{display:inline-block;padding:10px 16px;border-radius:999px;font-weight:700;border:2px solid var(--brand);background:var(--brand);color:#fff;cursor:pointer;margin:0 4px}
-    .btn-carousel:disabled{opacity:0.5;cursor:not-allowed;filter:grayscale(0.2)}
-    .ph{background:linear-gradient(135deg,#d7efe5,#fff);border-radius:var(--radius);aspect-ratio:16/9;display:grid;place-items:center;color:#2f6d59;font-weight:700}
-
-    /* ====== NEWSLETTER ======= */
-    #newsletter-form {
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Tot centrat */
-      gap: 14px; /* Separació agradable entre elements */
-    }
-  
-    #newsletter-form input[type="email"] {
-      width: 100%;
-      max-width: 350px;
-      padding: 12px 14px;
-      border: 1px solid #ccc;
-      border-radius: var(--radius);
-      font-size: 16px;
-    }
-  
-    #newsletter-form .check {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      max-width: 420px;
-      text-align: left;
-    }
-  
-    #newsletter-form button {
-      margin-top: 6px;
-    }
-
-    /* Feedback newsletter (èxit/error) */
-    .newsletter-feedback{
-      margin-top:16px;
-      padding:18px;
-      border-radius:12px;
-      border:1px solid #cfe7dc;
-      background:#f1faf5;
-      color:#114a34;
-      text-align:center;
-    }
-    .newsletter-feedback h4{
-      margin:0 0 6px; font-size:18px;
-    }
-    .newsletter-feedback small{
-      color:#2f6d59;
-    }
-    .newsletter-error{
-      border-color:#f6c5c5; background:#fff6f6; color:#7a2222;
-    }
-
-    /* === Modal newsletter === */
-    .nl-modal-backdrop{
-      position:fixed; inset:0; background:rgba(0,0,0,.35);
-      display:flex; align-items:center; justify-content:center;
-      z-index:9999; animation: nlFade .12s ease-out;
-    }
-    @keyframes nlFade{from{opacity:0}to{opacity:1}}
-    
-    .nl-modal{
-      background:#fff; border-radius:16px; border:1px solid #e5ece8;
-      max-width:520px; width:92vw; padding:22px 22px 18px; box-shadow:0 10px 30px rgba(0,0,0,.18);
-    }
-    .nl-modal h4{margin:0 0 6px; font-size:20px}
-    .nl-modal p{margin:0 0 10px; color:#2a2a2a}
-    .nl-modal .ok{
-      background:#f1faf5; border:1px solid #cfe7dc; color:#114a34; border-radius:12px; padding:12px 14px; margin:10px 0;
-    }
-    .nl-modal .err{
-      background:#fff6f6; border:1px solid #f6c5c5; color:#7a2222; border-radius:12px; padding:12px 14px; margin:10px 0;
-    }
-    .nl-modal .actions{display:flex; justify-content:flex-end; gap:8px; margin-top:8px}
-    .nl-btn{appearance:none; border:0; padding:10px 14px; border-radius:999px; font-weight:700; cursor:pointer}
-    .nl-btn-primary{background:var(--brand); color:#fff}
-    .nl-btn-ghost{background:#edf3f0; color:#114a34}
-    
-
-
-    /* ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
-    footer{border-top:1px solid #eee;background:#fff}
-    /* ====== END FOOTER ====== */
-    </style>
   <!-- Google Fonts: Elegància (Merriweather) + Confiança (Source Sans 3) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -180,9 +36,9 @@
         <!-- LOGOTIP / ENLLAÇ A INICI -->
         <a href="#inici" aria-label="Inici: Vacances Olivet">
           <svg width="200" height="40" viewBox="0 0 360 72" aria-hidden="true">
-  <text x="0" y="30" font-size="28" font-weight="800" fill="var(--brand)">Vacances</text>
-  <text x="160" y="30" font-size="24" fill="var(--accent)">Olivet</text>
-</svg>
+            <text x="0" y="30" font-size="28" font-weight="800" fill="var(--brand)">Vacances</text>
+            <text x="160" y="30" font-size="24" fill="var(--accent)">Olivet</text>
+          </svg>
         </a>
 
         <!-- BOTÓ MENÚ (MÒBIL) -->
@@ -209,7 +65,6 @@
           <div>
             <!-- ⭐ ESLOGAN (edita el text) -->
             <h1>Compartim viatges,<br>creem records</h1>
-            
           </div>
           <div class="desc">
             <!-- 📝 DESCRIPCIÓ EMPRESA (edita el text) -->
@@ -220,7 +75,7 @@
           <div class="hero-image">
             <!-- 📷 Imatge HERO (canvia la URL si ho necessites). Consell: 16:9 és una relació d'aspecte molt flexible. -->
             <!-- Si la imatge és dins del mateix repositori, també pots usar: src="imatges/portada.jpg" -->
-            <img src="/imatges/portada.jpg" alt="Portada Vacances Olivet: destí de viatge" loading="eager" decoding="async">
+            <img src="https://raw.githubusercontent.com/mpararols/viatges-olivet/main/imatges/portada.jpg" alt="Portada Vacances Olivet: destí de viatge" loading="eager" decoding="async">
           </div>
         </div>
       </div>
@@ -229,7 +84,9 @@
     <!-- ====== SORTIDES (carrusel que es carrega des de viatges/viatges.json) ====== -->
     <section id="sortides" class="container">
       <h2>Properes sortides</h2>
+      <!-- Carrusel: les targetes es pinten via JS -->
       <div class="carousel" id="carousel"></div>
+      <!-- Controls del carrusel -->
       <div class="controls">
         <button class="btn-carousel" id="prev">← Anteriors</button>
         <button class="btn-carousel" id="next">Següents →</button>
@@ -238,185 +95,64 @@
       <p id="msg-viatges" style="display:none;color:var(--muted)">No s'han pogut carregar els viatges ara mateix. Torna-ho a provar més tard.</p>
     </section>
     
-    <!-- FORMULARI DE CONTACTE SIMPLE -->
+    <!-- ====== NEWSLETTER (formulari d'alta mailing) ====== -->
     <section id="newsletter" class="container">
       <div class="contact-box" style="margin-top:40px;padding:28px;border:1px solid #ddd;border-radius:var(--radius);max-width:600px;margin-inline:auto;text-align:center;">
-      <h3>Vols rebre informació dels nous viatges?</h3>
-            <form id="newsletter-form" action="https://formspree.io/f/xdkyoypq" method="POST">
-              <input type="email" name="email" placeholder="El teu correu" required>
-              <label class="check">
-                <input type="checkbox" name="consent" value="yes" required>
-                Accepto la política de protecció de dades i el tractament d’informació.
-              </label>
-            
-              <!-- personalitza l'assumpte -->
-              <input type="hidden" name="_subject" value="ALTA MAILING">
-              <!-- redirecció opcional després d'enviar -->
-              <input type="hidden" name="_next" value="https://vacances-olivet.github.io/gracies.html">
-              <!-- honeypot (no l'omplis mai) -->
-              <input type="text" name="_gotcha" style="display:none">
-            
-              <button type="submit" class="btn btn-primary">Subscriu-m'hi</button>
-            </form>
+        <h3>Vols rebre informació dels nous viatges?</h3>
+        <form id="newsletter-form" action="https://formspree.io/f/xdkyoypq" method="POST">
+          <input type="email" name="email" placeholder="El teu correu" required>
+          <label class="check">
+            <input type="checkbox" name="consent" value="yes" required>
+            Accepto la <a href="privacitat.html" target="_blank" rel="noopener">política de protecció de dades</a> i el tractament d’informació.
+          </label>
+          <!-- personalitza l'assumpte -->
+          <input type="hidden" name="_subject" value="ALTA MAILING">
+          <!-- redirecció opcional després d'enviar (amb AJAX no s'usarà) -->
+          <input type="hidden" name="_next" value="https://vacances-olivet.github.io/gracies.html">
+          <!-- honeypot (no l'omplis mai) -->
+          <input type="text" name="_gotcha" style="display:none">
+          <button type="submit" class="btn btn-primary">Subscriu-m'hi</button>
+        </form>
       </div>
     </section>
-
-
-
-
   </main>
 
-  <!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
-  <footer>
-    <div class="container">
-      <p>© <span id="year"></span> Vacances Olivet · Compartim viatges, creem records</p>
+<!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
+<footer>
+  <div class="container footer-grid">
+    <!-- Columna esquerra: dades de l'empresa -->
+    <div class="footer-info">
+      <h3>Vacances Olivet S.L.</h3>
+      <p>C/ Canat 115<br>17820 Banyoles</p>
+      <p><strong>Tel.:</strong> 972 57 05 93<br>
+         <strong>Mail:</strong> <a href="mailto:info@vacances-olivet.cat">info@vacances-olivet.cat</a></p>
+      <p><strong>Horari:</strong><br>
+         De dilluns a divendres, de <strong>9.00 a 13.00 h</strong><br>
+         Tardes, <strong>a hores convingudes</strong>
+      </p>
     </div>
-  </footer>
-  <!-- ====== END FOOTER ====== -->
 
-  <script>
-    // ====== FOOTER: Any actual (no tocar) ======
-    document.getElementById('year').textContent=new Date().getFullYear();
+    <!-- Columna dreta: mapa de Google -->
+    <div class="footer-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1025.3659504649509!2d2.7640275872920164!3d42.120599791129884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bac21c47fc192b%3A0xc5daaa04183b6942!2sOlivet%20Tours!5e0!3m2!1sca!2ses!4v1762950219617!5m2!1sca!2ses"
+        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
 
-    // ====== MENÚ MÒBIL (no tocar) ======
-    const toggle=document.querySelector('.nav-toggle');
-    const menu=document.getElementById('menu');
-    toggle.addEventListener('click',()=>{
-      const opened=menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded',opened);
-    });
-    document.addEventListener('click',e=>{
-      if(!menu.contains(e.target)&&!toggle.contains(e.target))menu.classList.remove('open');
-    });
-    window.addEventListener('scroll',()=>menu.classList.remove('open'));
+<div class="footer-bottom">
+  <p>
+    © <span id="year"></span> Vacances Olivet · Compartim viatges, creem records ·
+    <a href="privacitat.html">Política de privacitat</a>
+  </p>
+</div>
 
-    // ====== CÀRREGA DE VIATGES DES DE viatges/viatges.json ======
-    async function carregarOlivet(){
-      const msg = document.getElementById('msg-viatges');
-      try{
-        const resp = await fetch('viatges/viatges.json?cacheBust=' + Date.now(), { cache: 'no-store' });
-        if(!resp.ok) throw new Error('HTTP ' + resp.status);
-        const viatges = await resp.json();
-        const container = document.getElementById('carousel');
-        container.innerHTML='';
-        const MAX_VIATGES = 12; // Ajusta aquest límit si cal
-        (viatges||[])
-          .filter(v=>v && v.path && !String(v.path).includes('arxivats'))
-          .slice(0, MAX_VIATGES)
-          .forEach(v=>{
-            const card=document.createElement('div');
-            card.className='card';
-            card.innerHTML = `
-              <a href="${v.path}">
-                <img loading="lazy" decoding="async" src="${v.imatge}" alt="${v.titol}">
-              </a>
-              <h3>${v.titol}</h3>
-              <p>${v.dates||''}</p>`;
-            container.appendChild(card);
-          });
-        msg.style.display = (container.children.length===0)?'block':'none';
-        updateArrows();
-      }catch(e){
-        console.error('Error carregant viatges:',e);
-        msg.style.display='block';
-      }
-    }
-    carregarOlivet();
-
-    // ====== CONTROLS DEL CARROSEL (no tocar) ======
-    const carr = document.getElementById('carousel');
-    const btnPrev = document.getElementById('prev');
-    const btnNext = document.getElementById('next');
-
-    function getCardStep(){
-      const card = carr.querySelector('.card');
-      if(!card) return 320; // fallback
-      const style = getComputedStyle(carr);
-      const gap = parseInt(style.columnGap || style.gap || '16', 10);
-      return card.offsetWidth + gap; // ample targeta + gap
-    }
-    function scrollCarousel(direction){
-      const isMobile = window.matchMedia('(max-width: 900px)').matches;
-      const cardsPerStep = isMobile ? 1 : 3; // mòbil: 1 targeta; escriptori: 3 targetes
-      carr.scrollBy({ left: direction * getCardStep() * cardsPerStep, behavior:'smooth' 
-    });
-    }
-    btnPrev.onclick = () => scrollCarousel(-1);
-    btnNext.onclick = () => scrollCarousel(1);
-
-    function updateArrows(){
-      const max = carr.scrollWidth - carr.clientWidth - 1;
-      btnPrev.disabled = carr.scrollLeft <= 0;
-      btnNext.disabled = carr.scrollLeft >= max;
-    }
-    carr.addEventListener('scroll', updateArrows, { passive:true });
-    const ro = new ResizeObserver(updateArrows);
-    ro.observe(carr);
-    updateArrows();
-  </script>
-
-<script>
-// === Helper: crear i mostrar modal (èxit o error)
-function showNewsletterModal({ok=true}={}){
-  const backdrop = document.createElement('div');
-  backdrop.className = 'nl-modal-backdrop';
-  backdrop.innerHTML = `
-    <div class="nl-modal" role="dialog" aria-modal="true" aria-labelledby="nl-title">
-      <h4 id="nl-title">${ok ? '✓ Alta rebuda correctament' : 'Hi ha hagut un problema'}</h4>
-      <div class="${ok ? 'ok' : 'err'}">
-        <p>
-          ${ok
-            ? "Gràcies! Hem registrat la teva sol·licitud d’alta al mailing."
-            : "No s’ha pogut enviar ara mateix. Torna-ho a provar més tard."}
-        </p>
-      </div>
-      <div class="actions">
-        <button class="nl-btn nl-btn-primary" data-close>Entesos</button>
-      </div>
-    </div>`;
-  document.body.appendChild(backdrop);
-  
-  if (ok) {
-    setTimeout(() => {
-      try { backdrop.remove(); } catch {}
-    }, 4000);
-  }
-
-  const close = () => { backdrop.remove(); document.removeEventListener('keydown', onKey); };
-  const onKey = (e) => { if(e.key === 'Escape') close(); };
-
-  backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) close(); });
-  backdrop.querySelector('[data-close]').addEventListener('click', close);
-  document.addEventListener('keydown', onKey);
-
-  // focus al botó per accessibilitat
-  setTimeout(()=>backdrop.querySelector('[data-close]').focus(), 10);
-}
-
-// === Enviament AJAX a Formspree + modal
-document.getElementById('newsletter-form')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  if (!form.checkValidity()) return;
-
-  const data = new FormData(form);
-  const resp = await fetch(form.action, {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
-  });
-
-  if (resp.ok) {
-    form.reset();
-    showNewsletterModal({ok:true});
-  } else {
-    showNewsletterModal({ok:false});
-  }
-});
-</script>
+</footer>
+<!-- ====== END FOOTER ====== -->
 
 
-
+  <!-- Scripts principals del lloc -->
+  <script src="script.js"></script>
 
   <noscript>
     <!-- Missatge si l'usuari té el JavaScript desactivat -->
