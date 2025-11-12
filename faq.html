@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dubtes freqüents · Vacances Olivet</title>
+  <meta name="description" content="Resolem els dubtes més habituals sobre les nostres sortides i serveis." />
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html#inici" aria-label="Inici: Vacances Olivet">
+          <svg width="200" height="40" viewBox="0 0 360 72" aria-hidden="true">
+            <text x="0" y="30" font-size="28" font-weight="800" fill="var(--brand)">Vacances</text>
+            <text x="160" y="30" font-size="24" fill="var(--accent)">Olivet</text>
+          </svg>
+        </a>
+        <button class="nav-toggle" aria-controls="menu" aria-expanded="false">☰ Menú</button>
+        <div class="menu" id="menu">
+          <a href="index.html#sortides">Sortides</a>
+          <a href="quisom.html">Qui som?</a>
+          <a href="faq.html" aria-current="page">Dubtes</a>
+          <a href="index.html#contacte">Contacte</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- ====== END HEADER ====== -->
+
+  <main id="contingut">
+    <section class="subhero">
+      <div class="container">
+        <h1 class="page-title">Dubtes freqüents</h1>
+        <p class="page-lead">Si no trobes el que busques, truca’ns o escriu-nos i t’ajudem.</p>
+      </div>
+    </section>
+
+    <!-- ====== FAQ: acordió natiu amb <details> ====== -->
+    <section class="container" style="max-width:900px">
+      <div class="faq">
+        <details class="faq-item" open>
+          <summary id="q-reserva">Com puc reservar un viatge?</summary>
+          <div class="faq-body">
+            Truca’ns o envia’ns un correu electrònic com més aviat millor amb les teves dades.
+            T’apuntarem al viatge i t’avisarem quan calgui fer un primer dipòsit per confirmar la plaça.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary id="q-anullacio">Què passa si reservo un viatge i al final no hi puc anar?</summary>
+          <div class="faq-body">
+            Tots els viatges inclouen una assegurança d’assistència i anul·lació. En el moment de contractar el viatge,
+            es subscriu l’assegurança i et facilitem la pòlissa amb cobertures i condicions. En cas d’anul·lació justificada,
+            la companyia asseguradora estudiarà el cas i et demanarà la documentació corresponent.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary id="q-sol">Puc viatjar sol/sola?</summary>
+          <div class="faq-body">
+            Sí, però cal sumar el <em>suplement d’individual</em> indicat als programes. Alguns hotels limiten el nombre
+            d’habitacions individuals; abans de confirmar, pot ser que hàgim de consultar disponibilitat.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary id="q-compartir">No vull pagar el suplement d’individual. Em podeu posar amb algú que també viatgi sol/sola?</summary>
+          <div class="faq-body">
+            No. La nostra agència no fa arranjaments d’habitació compartida entre persones que no es coneixen.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary id="q-alergies">Tinc al·lèrgies o problemes alimentaris. Us ho haig de dir?</summary>
+          <div class="faq-body">
+            Sí. Avisa’ns tan aviat com puguis per informar restaurants i hotels i preveure un menú adequat.
+            Si ho comuniques un cop començat el viatge, pot ser que no puguem adaptar els menús a temps.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary id="q-mobilitat">Em costa caminar. Puc viatjar amb vosaltres?</summary>
+          <div class="faq-body">
+            Sí. Viatjar també és gaudir dels paisatges des de l’autocar i de la gastronomia. Si en algun moment
+            et costa seguir el grup, avisa’ns i mirarem d’oferir alternatives (p. ex. esperar en un punt concret).
+          </div>
+        </details>
+
+        <!-- Pots afegir més preguntes duplicant <details class="faq-item">… -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== BEGIN FOOTER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <h3>Vacances Olivet S.L.</h3>
+        <p>C/ Canat 115<br>17820 Banyoles</p>
+        <p><strong>Tel.:</strong> 972 57 05 93<br>
+           <strong>Mail:</strong> <a href="mailto:info@vacances-olivet.cat">info@vacances-olivet.cat</a></p>
+        <p><strong>Horari:</strong><br>
+           De dilluns a divendres, de 9.00 a 13.00 h<br>
+           Tardes, a hores convingudes
+        </p>
+      </div>
+      <div class="footer-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1025.3659504649509!2d2.7640275872920164!3d42.120599791129884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bac21c47fc192b%3A0xc5daaa04183b6942!2sOlivet%20Tours!5e0!3m2!1sca!2ses!4v1762950219617!5m2!1sca!2ses"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Vacances Olivet · Compartim viatges, creem records ·
+        <a href="privacitat.html">Política de privacitat</a></p>
+    </div>
+  </footer>
+  <!-- ====== END FOOTER ====== -->
+
+  <script src="script.js"></script>
+</body>
+</html>
