@@ -16,6 +16,7 @@ html{scroll-behavior:smooth;}
 body{font-family:'Source Sans 3', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;margin:0;background:var(--bg);color:var(--text);line-height:1.6;font-size:18px}
 img{max-width:100%;height:auto;border-radius:var(--radius)}
 a{color:var(--brand);text-underline-offset:3px}
+.desc{font-family: 'Lobster'}
 .container{max-width:1050px;margin-inline:auto;padding:24px}
 .btn{display:inline-block;font-weight:700;padding:14px 22px;border-radius:999px;border:2px solid transparent;text-decoration:none;font-size:18px}
 .btn-primary{background:var(--brand);color:#fff}
