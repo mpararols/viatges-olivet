@@ -2,16 +2,32 @@
 document.getElementById('year').textContent=new Date().getFullYear();
 
 // ====== MENÚ MÒBIL ======
-const toggle=document.querySelector('.nav-toggle');
-const menu=document.getElementById('menu');
-toggle.addEventListener('click',()=>{
-  const opened=menu.classList.toggle('open');
-  toggle.setAttribute('aria-expanded',opened);
-});
-document.addEventListener('click',e=>{
-  if(!menu.contains(e.target)&&!toggle.contains(e.target))menu.classList.remove('open');
-});
-window.addEventListener('scroll',()=>menu.classList.remove('open'));
+const toggle = document.querySelector('.nav-toggle');
+const menu = document.getElementById('menu');
+
+if (toggle && menu) {
+  // Obrir/tancar en clicar el botó
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Que aquest clic no compti com "clic fora"
+    const opened = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', opened);
+  });
+
+  // Tancar quan cliquem fora del menú
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Opcional: tancar si canvia molt la mida (gires el mòbil, etc.)
+  window.addEventListener('resize', () => {
+    menu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+}
+
 
 // ====== CÀRREGA DE VIATGES DES DE JSON ======
 async function carregarOlivet(){
@@ -30,11 +46,13 @@ async function carregarOlivet(){
         const card=document.createElement('div');
         card.className='card';
         card.innerHTML = `
-          <a href="${v.path}">
-            <img loading="lazy" decoding="async" src="${v.imatge}" alt="${v.titol}">
-          </a>
-          <h3>${v.titol}</h3>
-          <p>${v.dates||''}</p>`;
+          <a href="${v.path}" class="card-link">
+            <div class="card-inner">
+              <img loading="lazy" decoding="async" src="${v.imatge}" alt="${v.titol}">
+              <h3>${v.titol}</h3>
+              <p>${v.dates || ''}</p>
+            </div>
+          </a>`;
         container.appendChild(card);
       });
     msg.style.display = (container.children.length===0)?'block':'none';

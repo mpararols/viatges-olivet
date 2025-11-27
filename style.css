@@ -22,6 +22,12 @@ a{color:var(--brand);text-underline-offset:3px}
 .btn-primary:hover{filter:brightness(0.95)}
 .btn-ghost{background:transparent;color:var(--brand);border-color:var(--brand)}
 
+/* Compensa l'alçada del header sticky quan anem a #inici */
+#inici {
+  scroll-margin-top: 150px; /* ajusta 80–110px segons la teva alçada real del header */
+}
+
+
 /* ====== BEGIN HEADER (COPIAR TAL QUAL A TOTES LES PÀGINES) ====== */
 header{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:1px solid #eee;z-index:10}
 nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -63,11 +69,107 @@ nav .menu a:hover{background:var(--brand-2)}
 }
 .card img{width:100%;height:200px;object-fit:cover;border-radius:var(--radius)}
 
-@media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr}
-  .grid-3{grid-template-columns:1fr}
-  .card{flex:0 0 85vw} /* targeta ampla i còmoda en mòbil */
+/* ====== MENÚ MÒBIL MILLORAT ====== */
+@media (max-width: 900px) {
+  /* Header enganxat a dalt com ja tens */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #eee;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: relative;
+    z-index: 50; /* Per damunt del contingut quan el menú està tancat */
+  }
+
+  /* Botó del menú visible només en mòbil */
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  /* Estil base del menú com a panell que entra de la dreta */
+  nav .menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; /* ocupa tota la pantalla i tapa el header */
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 24px 32px; /* 80px per deixar espai mental pel logo / header */
+    gap: 10px;
+    transform: translateX(100%);      /* fora de la pantalla, a la dreta */
+    transition: transform 0.25s ease; /* animació entrada/sortida */
+    z-index: 45;
+  }
+
+  /* Quan està obert, entra a pantalla */
+  nav .menu.open {
+    transform: translateX(0);
+  }
+
+  /* Estil dels enllaços del menú en modo "app" */
+  nav .menu a {
+    display: block;
+    padding: 14px 12px;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text, #1d1d1b);
+    border: 1px solid transparent;
+  }
+
+  nav .menu a:hover {
+    background: var(--brand-2, #f0f8f5);
+    border-color: var(--brand, #0a6b4a);
+  }
+
+  /* Si vols, el primer (“Inici”) amb una mica més d’espai */
+  nav .menu a:first-child {
+    margin-bottom: 6px;
+  }
 }
+
+/* En escriptori, el menú torna a ser l’habitual i amaguem el botó */
+@media (min-width: 901px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  nav .menu {
+    position: static;
+    transform: none;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+
+
+
 
 /* Separació extra entre el contingut i el footer */
 main{ padding-bottom: 36px; }
@@ -91,6 +193,52 @@ main{ padding-bottom: 36px; }
   color: #8F1A1A;
   font-weight: 700;
 }
+
+/* Targeta clicable */
+.card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-inner {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: var(--radius);
+  padding: 18px;
+  height: 100%;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* Imatge dins la targeta clicable */
+.card-inner img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* Estil de la card en hover */
+.card-link:hover .card-inner {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+}
+
+/* El títol continua semblant un h3 normal, no un link */
+.card-inner h3 {
+  margin-top: 12px;
+  color: inherit;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Evita subratllat o color d'enllaç */
+.card-inner h3,
+.card-inner h3 a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
 
 /* ====== NEWSLETTER ======= */
 #newsletter-form {
@@ -414,3 +562,71 @@ footer{
   .contact-card .field-two{ grid-template-columns:1fr; }
   .contact-map iframe{ height:220px; }
 }
+
+/* ===== PÀGINES DE VIATGE ===== */
+
+.viatge-page {
+  padding-block: 40px;
+}
+
+/* Disposició del bloc inicial: text + imatge */
+.intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.intro h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+}
+
+.meta {
+  color: var(--muted, #666);
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.viatge-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius, 16px);
+  object-fit: cover;
+}
+
+/* Targeta de detalls del viatge */
+.detail {
+  margin-top: 1.8rem;
+  padding: 1.5rem 1.7rem;
+  background: #fff;
+  border-radius: var(--radius, 16px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.center {
+  text-align: center;
+}
+
+.viatge-cta {
+  margin-top: 1.8rem;
+}
+
+/* Responsivitat */
+@media (max-width: 900px) {
+  .viatge-page {
+    padding-block: 24px;
+  }
+
+  .intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .viatge-hero {
+    order: -1; /* opcional: imatge a dalt en mòbil */
+  }
+}
+

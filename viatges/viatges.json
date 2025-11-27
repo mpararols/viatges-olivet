@@ -1,26 +1,32 @@
 [
   {
-    "titol": "Andalusia cultural",
-    "dates": "Del 10 al 17 de juny de 2025",
-    "imatge": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Alhambra_in_the_evening.jpg/1024px-Alhambra_in_the_evening.jpg",
-    "path": "viatges/andalusia.html"
+    "titol": "Liguria, Toscana i Cinque Terre",
+    "dates": "Del 9 al 14 d’abril",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Cinque_Terre_%28217337419%29.jpeg",
+    "path": "viatges/liguria-toscana-cinque-terre.html"
   },
   {
-    "titol": "Pirineus i natura",
-    "dates": "Juliol 2025",
-    "imatge": "https://www.ausuddespyrenees.com/wp-content/uploads/lago-sant-mauirici-parque-nacional-aiguestortes-min.jpg",
-    "path": "viatges/pirineus.html"
+    "titol": "Holanda – Temps de flors",
+    "dates": "Del 19 al 26 d’abril",
+    "imatge": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2XtCYM3TzHu92UTeTHZW2xeFBnL6XIoKUUA&s",
+    "path": "index.html"
   },
   {
-    "titol": "Viena i els valsos",
-    "dates": "Setembre 2025",
+    "titol": "Viena, Bratislava i Budapest",
+    "dates": "Del 5 al 12 de maig",
     "imatge": "https://thetourguy.com/wp-content/uploads/2023/01/TTTD-Vienna-feature-1440-675.jpg",
-    "path": "viatges/viena.html"
+    "path": "index.html"
   },
   {
-    "titol": "Ruta del vi a La Rioja",
-    "dates": "Octubre 2025",
-    "imatge": "https://www.hola.com/horizon/landscape/507043c6224a-la-rioja-alta-san-vicente-de-la-sonsierra-t.jpg",
-    "path": "viatges/rioja.html"
+    "titol": "Croàcia",
+    "dates": "Del 4 a l’11 de juny",
+    "imatge": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Casco_viejo_de_Dubrovnik%2C_Croacia%2C_2014-04-14%2C_DD_04.JPG",
+    "path": "index.html"
+  },
+  {
+    "titol": "Racons d’Àustria",
+    "dates": "Del 21 al 27 de juny",
+    "imatge": "https://imagenes.elpais.com/resizer/v2/QXT2PSDG2NO7PA5PPTAC7ZD2PY.jpg?auth=f9e6e7521b5d68a180d74e957bd29fce90ec432e20381f1eacb6ab7c5d824d5e&width=1960&height=1470&smart=true",
+    "path": "index.html"
   }
 ]
